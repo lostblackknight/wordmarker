@@ -1,0 +1,44 @@
+# ======================================================================================================
+
+# ----------------------配置数据库信息
+#
+# 详细信息请查看 https://docs.sqlalchemy.org/en/14/core/engines.html
+# url:
+#    postgresql: "postgresql://username:passwrod@localhost:5432/database"
+#    mysql: mysql+pymysql://username:password@localhost:3306/database
+# echo: 是否开启日志
+# encoding: 编码，默认utf-8
+# pool_size: 连接池大小
+# max_overflow: 连接的数量，以允许在连接池"溢出"
+# pool_recycle: 在给定的秒数过去之后，此设置将导致池回收连接。默认为-1。例如，设置为3600表示一小时后将回收连接
+# pool_timeout: 放弃从池中获得连接之前要等待的秒数
+# echo_pool: 是否开启日志
+pdbc:
+  engine:
+    url: "postgresql://postgres:123456@localhost:5432/report"
+    echo: false
+    encoding: "utf-8"
+    pool_size: 5
+    max_overflow: 10
+    pool_recycle: -1
+    pool_timeout: 30.0
+    echo_pool: false
+
+# ======================================================================================================
+
+# ----------------------配置csv文件信息
+#
+# path: csv文件的输入路径，可以是文件，也可以是目录
+#       路径分隔符为 '/' 或 '\\'
+#       path的值为相对于当前yaml文件的路径
+# dir: csv文件的输出目录
+#      路径分隔符为 '/' 或 '\\'
+#      dir的值为相对于当前yaml文件的路径
+data:
+  csv:
+    input:
+      path: "data/in"
+    output:
+      dir: "data/out"
+
+# ======================================================================================================
