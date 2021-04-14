@@ -1,0 +1,2 @@
+class WordTemplate:
+    pass
