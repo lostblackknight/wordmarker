@@ -21,7 +21,6 @@ class YamlContext(Context, YamlResourceLoader):
 
     def _init(self):
         resource = self.get_resource(self.path)
-        print(resource.get_file())
         self.__data = self.load(resource)
 
     def get_yaml(self):

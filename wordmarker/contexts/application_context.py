@@ -22,9 +22,9 @@ class WordMarkerContext(Context):
 
     def __init__(self, resource):
         """
-        :param resource: 路径必须为绝对路径
+        :param resource: 路径必须为根路径或绝对路径
         """
-        self.__resource = resource
+        self.__resource = os.path.abspath(resource)
         if (not self.__factory_bean) and (not self.__bean_factory):  # 避免工厂多次初始化
             self._init()
         else:

@@ -6,7 +6,7 @@ def build_data_base():
     """
     构建数据库环境脚本
     """
-    WordMarkerContext("E://PycharmProjects//wordmarker//config.yaml")
+    WordMarkerContext("config.yaml")
     csv_template = CsvTemplate()
     data_dict = csv_template.csv_to_df()
     pdbc_template = PdbcTemplate()
