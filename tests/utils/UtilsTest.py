@@ -1,5 +1,6 @@
 import unittest
 
+from wordmarker.data.formatter import DocxFormatter
 from wordmarker.utils import CsvUtils
 from wordmarker.utils.file import PathUtils
 from wordmarker.utils.yaml import YamlUtils

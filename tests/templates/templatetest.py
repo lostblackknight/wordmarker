@@ -1,10 +1,15 @@
+import os
 import unittest
 
 from wordmarker.contexts import YamlContext, WordMarkerContext
 from wordmarker.creatives import FactoryBean
+from wordmarker.data.formatter import DocxFormatter
 from wordmarker.templates.csv_template import CsvHelper, CsvTemplate
+from wordmarker.templates.word_template import DocxHelper, ImgHelper
 from wordmarker.templates.pdbc_template import PdbcHelper, PdbcTemplate
 import pandas as pd
+
+from wordmarker.utils import PathUtils
 
 
 class MyTestCase(unittest.TestCase):
@@ -113,6 +118,45 @@ class MyTestCase(unittest.TestCase):
         pdbc_template.update_table(data_dict['城市数据_加盐.csv'], "t_city_data")
         pdbc_template.update_table(data_dict['市场数据_加盐.csv'], "t_market_data")
         pdbc_template.update_table(data_dict['景气指数_加盐.csv'], "t_prosperity_index")
+
+    def test12(self):
+        WordMarkerContext('E:\PycharmProjects\wordmarker\config.yaml')
+        helper = DocxHelper()
+        # print(helper.get_docx_in_path())
+        # print(helper.get_docx_out_path())
+        # print(helper.get_docx_file_name())
+        print(helper.get_docx())
+        print(helper.get_docx_file_name())
+
+    def test13(self):
+        WordMarkerContext('E:\PycharmProjects\wordmarker\config.yaml')
+        p = PdbcTemplate()
+        data = p.query(
+            "select * from t_city_data, t_market_data where t_city_data.year_id=? or t_market_data.year_id=? limit 10 "
+            "offset 0", 2016,
+            2016)
+        print(data)
+
+    def test14(self):
+        WordMarkerContext('E:\PycharmProjects\wordmarker\config.yaml')
+        file_list = ['E:\\PycharmProjects\\wordmarker\\template\\in\\bbb.txt', 'b.doc', 'c.doc', 'd.doc', 'f.docx']
+        suffix_list = ['.docx']
+        print(PathUtils.filter_file(file_list, suffix_list))
+
+    def test15(self):
+        d = DocxFormatter()
+        doc_path_list = ['E:\\PycharmProjects\\wordmarker\\template\\in\\2017年航指数半年白皮书—发布版（新）.doc',
+                         'E:\\PycharmProjects\\wordmarker\\template\\in\\2018年航指数半年白皮书—发布版（新）.doc']
+        d._format(doc_path_list, 'E:\\PycharmProjects\\wordmarker\\template\\out')
+
+    def test16(self):
+        WordMarkerContext('E:\PycharmProjects\wordmarker\config.yaml')
+        # print(DocxHelper().get_docx_in_path())
+        h = DocxHelper()
+        print(h.docx_in_path)
+        i = ImgHelper()
+        print(i.img_out_path)
+        print(i.get_img_file("aaa.png"))
 
 
 if __name__ == '__main__':
