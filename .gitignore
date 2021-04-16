@@ -211,3 +211,10 @@ dmypy.json
 
 # Cython debug symbols
 cython_debug/
+
+# 忽略csv文件
+*.csv
+
+# 忽略doc/docx文件
+*.doc
+*.docx
