@@ -1,5 +1,4 @@
 import os.path
-
 from wordmarker.contexts import Context, YamlContext
 from wordmarker.creatives import BeanFactory, FactoryBean
 
@@ -11,8 +10,6 @@ class WordMarkerContext(Context):
     **bean_factory**：可以获取到工厂里已经存在的bean实例的相关信息
 
     **yaml_context**：加载的yaml文件的相关信息
-
-    **xml_context**: 加载的xml文件的相关信息
     """
     __word_marker_context = None
     __bean_factory = None  # getter方法获取
@@ -46,7 +43,6 @@ class WordMarkerContext(Context):
         初始化其他上下文
         """
         self.__init_yaml_context()
-        self.__init_xml_context()
 
     def __init_factory_bean(self):
         """
@@ -68,12 +64,6 @@ class WordMarkerContext(Context):
         self.__yaml_context = YamlContext(self.__resource)
         # 2. 将yaml_context添加到工厂
         self.__factory_bean.add_bean("yaml_context", self.__yaml_context)
-
-    def __init_xml_context(self):
-        """
-        初始化xml_context
-        """
-        pass
 
     @property
     def bean_factory(self):

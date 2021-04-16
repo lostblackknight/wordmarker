@@ -10,7 +10,6 @@ from pandas.core.generic import bool_t
 from pandas.io.parsers import _c_parser_defaults, TextFileReader
 from wordmarker.contexts import YamlContext, SystemContext
 from wordmarker.creatives import FactoryBean
-from wordmarker.data.formatter import CsvFormatter
 from wordmarker.loaders import DefaultResourceLoader
 from wordmarker.utils import log, PathUtils
 
@@ -27,6 +26,9 @@ class CsvOperations(metaclass=ABCMeta):
 
 
 class CsvHelper(DefaultResourceLoader, SystemContext):
+    """
+    获取csv文件的相关信息
+    """
     __csv_helper = None
 
     @log
@@ -36,11 +38,11 @@ class CsvHelper(DefaultResourceLoader, SystemContext):
 
     def get_csv_in_path(self):
         """
-        通过读取yaml文件的data.csv.in.path属性，获取输入的csv路径
+        通过读取yaml文件的data.csv.in.path属性，获取输入的csv文件或目录
 
-        获取csv文件的绝对路径
+        获取csv文件或目录的绝对路径
 
-        :return: csv文件的绝对路径
+        :return: csv文件或目录的绝对路径
         """
         prop = "data.csv.input.path"
         value = self.__yaml_context.get_value(prop)
@@ -48,11 +50,11 @@ class CsvHelper(DefaultResourceLoader, SystemContext):
 
     def get_csv_out_path(self):
         """
-        通过读取yaml文件的data.csv.output.path属性，获取输出的csv路径
+        通过读取yaml文件的data.csv.output.dir属性，获取输出的csv目录
 
-        获取csv文件的绝对路径
+        获取csv目录的绝对路径
 
-        :return: csv文件的绝对路径
+        :return: csv目录的绝对路径
         """
         prop = "data.csv.output.dir"
         value = self.__yaml_context.get_value(prop)
@@ -62,9 +64,9 @@ class CsvHelper(DefaultResourceLoader, SystemContext):
         """
         获取csv文件的绝对路径
 
-        yaml文件中data.csv.input.path/data.csv.output.path是目录，返回当前目录下的所有csv文件的绝对路径
+        yaml文件中data.csv.input.path是目录，返回当前目录下的所有csv文件的绝对路径
 
-        yaml文件中data.csv.input.path/data.csv.output.path是文件，返回当前文件的绝对路径
+        yaml文件中data.csv.input.path是文件，返回当前文件的绝对路径
 
         :return: csv文件的绝对路径
         """
@@ -85,7 +87,7 @@ class CsvHelper(DefaultResourceLoader, SystemContext):
         return cls.__csv_helper
 
 
-class CsvTemplate(CsvOperations, CsvHelper, CsvFormatter):
+class CsvTemplate(CsvOperations, CsvHelper):
 
     @log
     def __init__(self):
