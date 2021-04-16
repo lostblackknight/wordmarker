@@ -1,4 +1,5 @@
 import os
+from typing import Union
 from wordmarker.contexts import SystemContext
 
 
@@ -49,3 +50,23 @@ class PathUtils(SystemContext):
         final_list = src_list + tgt_list
         final_path = self.path_separator.join(final_list)
         return final_path
+
+    @staticmethod
+    def filter_file(file_list: Union[list, str], suffix_list: Union[list, str]):
+        """
+        过滤目录或者文件，通过后缀名
+
+        :param file_list: 文件或目录列表
+        :param suffix_list: 后缀或后缀列表
+        :return: 过滤后的文件列表
+        """
+        final_list = []
+        if type(file_list) is not list:
+            file_list = [file_list]
+        for item in file_list:
+            file_suffix = os.path.splitext(item)[1]
+            if type(suffix_list) is not list:
+                suffix_list = [suffix_list]
+            if file_suffix in suffix_list:
+                final_list.append(item)
+        return final_list
