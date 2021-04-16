@@ -28,6 +28,7 @@ class PathUtils(SystemContext):
             tgt = ../../d/c.txt
 
             final = c:/a/d/c.txt
+
         :return: 最终路径
         """
         src: str = self.__src
