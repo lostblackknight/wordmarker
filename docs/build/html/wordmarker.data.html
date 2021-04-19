@@ -1,0 +1,521 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>wordmarker.data package &mdash; WordMarker  文档</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/word_marker.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="wordmarker.loaders package" href="wordmarker.loaders.html" />
+    <link rel="prev" title="wordmarker.creatives package" href="wordmarker.creatives.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> WordMarker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="wordmarker.contexts.html">wordmarker.contexts package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wordmarker.creatives.html">wordmarker.creatives package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">wordmarker.data package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-wordmarker.data.formatter">wordmarker.data.formatter module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-wordmarker.data.resource">wordmarker.data.resource module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wordmarker.loaders.html">wordmarker.loaders package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wordmarker.templates.html">wordmarker.templates package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wordmarker.utils.html">wordmarker.utils package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">WordMarker</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>wordmarker.data package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/wordmarker.data.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-wordmarker.data">
+<span id="wordmarker-data-package"></span><h1>wordmarker.data package<a class="headerlink" href="#module-wordmarker.data" title="永久链接至标题">¶</a></h1>
+<dl class="field-list">
+<dt class="field-odd">作者</dt>
+<dd class="field-odd"><p>陈思祥</p>
+</dd>
+<dt class="field-even">时间</dt>
+<dd class="field-even"><p>2021年4月</p>
+</dd>
+<dt class="field-odd">概述</dt>
+<dd class="field-odd"><p>当前模块用来处理数据和资源。</p>
+<ol class="arabic">
+<li><p><code class="docutils literal notranslate"><span class="pre">wordmarker.data.resource</span></code></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>加载的资源，包含和资源相关的属性和判断。
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wordmarker.data.formatter</span></code></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>格式化数据，对某些数据进行处理。
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</dd>
+</dl>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-wordmarker.data.formatter">
+<span id="wordmarker-data-formatter-module"></span><h2>wordmarker.data.formatter module<a class="headerlink" href="#module-wordmarker.data.formatter" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="wordmarker.data.formatter.DocxFormatter">
+<em class="property">class </em><code class="sig-name descname">DocxFormatter</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/formatter.html#DocxFormatter"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.formatter.DocxFormatter" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#wordmarker.data.formatter.Formatter" title="wordmarker.data.formatter.Formatter"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.data.formatter.Formatter</span></code></a>, <a class="reference internal" href="wordmarker.contexts.html#wordmarker.contexts.system_context.SystemContext" title="wordmarker.contexts.system_context.SystemContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.contexts.system_context.SystemContext</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">格式化</span><span class="o">.</span><span class="n">docx文件</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.data.formatter.DocxFormatter.format">
+<code class="sig-name descname">format</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">doc_path_list</span><span class="p">:</span> <span class="n">list</span></em>, <em class="sig-param"><span class="n">docx_path</span><span class="p">:</span> <span class="n">str</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/formatter.html#DocxFormatter.format"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.formatter.DocxFormatter.format" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>将存放 <code class="docutils literal notranslate"><span class="pre">.doc</span></code> 和 <code class="docutils literal notranslate"><span class="pre">.docx</span></code> 文件的路径中所有的 <code class="docutils literal notranslate"><span class="pre">.doc</span></code> 文件转换为 <code class="docutils literal notranslate"><span class="pre">.docx</span></code> 文件</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>doc_path_list</strong> – 输入的路径列表</p></li>
+<li><p><strong>docx_path</strong> – 输出的目录</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wordmarker.data.formatter.Formatter">
+<em class="property">class </em><code class="sig-name descname">Formatter</code><a class="reference internal" href="_modules/wordmarker/data/formatter.html#Formatter"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.formatter.Formatter" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">格式化的抽象类</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.data.formatter.Formatter.format">
+<em class="property">abstract </em><code class="sig-name descname">format</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/formatter.html#Formatter.format"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.formatter.Formatter.format" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>格式化数据</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>args</strong> – 数据</p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>格式化后的数据</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wordmarker.data.formatter.SqlFormatter">
+<em class="property">class </em><code class="sig-name descname">SqlFormatter</code><a class="reference internal" href="_modules/wordmarker/data/formatter.html#SqlFormatter"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.formatter.SqlFormatter" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#wordmarker.data.formatter.Formatter" title="wordmarker.data.formatter.Formatter"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.data.formatter.Formatter</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">格式化sql语句</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.data.formatter.SqlFormatter.format">
+<code class="sig-name descname">format</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sql</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/formatter.html#SqlFormatter.format"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.formatter.SqlFormatter.format" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>格式化用户输入的sql语句</p>
+<p>例如：</p>
+<blockquote>
+<div><div class="highlight-sql notranslate"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><span class="c1">-- 输入 --</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t_user</span> <span class="k">where</span> <span class="n">username</span><span class="o">=?</span> <span class="k">and</span> <span class="n">password</span><span class="o">=?</span>
+<span class="c1">-- 输出 --</span>
+<span class="k">select</span> <span class="o">*</span> <span class="k">from</span> <span class="n">t_user</span> <span class="k">where</span> <span class="n">username</span><span class="o">=</span><span class="p">:</span><span class="n">a</span> <span class="k">and</span> <span class="n">password</span><span class="o">=</span><span class="p">:</span><span class="n">b</span>
+</pre></div>
+</td></tr></table></div>
+</div></blockquote>
+</div>
+<div class="admonition caution">
+<p class="admonition-title">警告</p>
+<p>拼接的 <code class="docutils literal notranslate"><span class="pre">:a</span></code> <code class="docutils literal notranslate"><span class="pre">:b</span></code> 使用的是26个字母，也就是说一次查询的 <code class="docutils literal notranslate"><span class="pre">?</span></code> ，不能超过26个。</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>sql</strong> – sql语句</p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>格式化后的sql语句</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-wordmarker.data.resource">
+<span id="wordmarker-data-resource-module"></span><h2>wordmarker.data.resource module<a class="headerlink" href="#module-wordmarker.data.resource" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="wordmarker.data.resource.Resource">
+<em class="property">class </em><code class="sig-name descname">Resource</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/resource.html#Resource"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.resource.Resource" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="wordmarker.contexts.html#wordmarker.contexts.system_context.SystemContext" title="wordmarker.contexts.system_context.SystemContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.contexts.system_context.SystemContext</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>资源类，包含与资源相关的属性和判断的方法
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.data.resource.Resource.exists">
+<code class="sig-name descname">exists</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/resource.html#Resource.exists"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.resource.Resource.exists" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>判断文件或目录是否存在</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>存在，返回True</p></li>
+<li><p>不存在，返回False</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.data.resource.Resource.get_dir">
+<code class="sig-name descname">get_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/resource.html#Resource.get_dir"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.resource.Resource.get_dir" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取目录，返回目录的绝对路径</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>是目录，返回目录的绝对路径</p></li>
+<li><p>是文件，返回文件所在的目录</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.data.resource.Resource.get_file">
+<code class="sig-name descname">get_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/resource.html#Resource.get_file"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.resource.Resource.get_file" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取文件，返回文件的绝对路径</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>是文件，返回文件的绝对路径</p></li>
+<li><p>是目录，返回当前目录下所有文件的绝对路径</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.data.resource.Resource.get_file_encoding">
+<code class="sig-name descname">get_file_encoding</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/resource.html#Resource.get_file_encoding"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.resource.Resource.get_file_encoding" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取文件的编码</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul>
+<li><p>是文件，获取文件的编码，返回一个文件编码的字符串</p></li>
+<li><p>是目录，获取当前目录下所有文件的编码，返回一个字典</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>key为文件的绝对路径</p></li>
+<li><p>value为文件的编码</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.data.resource.Resource.get_file_name">
+<code class="sig-name descname">get_file_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/resource.html#Resource.get_file_name"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.resource.Resource.get_file_name" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取文件名</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>是文件，返回文件的名字</p></li>
+<li><p>是目录，返回当前目录下的所有文件的文件名</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.data.resource.Resource.get_file_name_prefix_suffix">
+<code class="sig-name descname">get_file_name_prefix_suffix</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/resource.html#Resource.get_file_name_prefix_suffix"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.resource.Resource.get_file_name_prefix_suffix" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取文件的前缀和后缀</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul>
+<li><p>是文件，获取文件的前缀和后缀，返回一个元组</p></li>
+<li><p>是目录，获取目录下所有文件的前缀和后缀，返回一个字典</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>key为文件名</p></li>
+<li><p>value为由文件的前缀和后缀组成的元组</p></li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.data.resource.Resource.get_loader">
+<code class="sig-name descname">get_loader</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/resource.html#Resource.get_loader"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.resource.Resource.get_loader" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取加载当前资源的加载器</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>加载器</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.data.resource.Resource.is_file">
+<code class="sig-name descname">is_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/data/resource.html#Resource.is_file"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.data.resource.Resource.is_file" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>判断是否为文件</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>是文件，返回True</p></li>
+<li><p>不是文件，返回False</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="wordmarker.loaders.html" class="btn btn-neutral float-right" title="wordmarker.loaders package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="wordmarker.creatives.html" class="btn btn-neutral float-left" title="wordmarker.creatives package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, chensixiang
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

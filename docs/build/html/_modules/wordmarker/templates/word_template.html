@@ -1,0 +1,414 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>wordmarker.templates.word_template &mdash; WordMarker  文档</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="../../../_static/word_marker.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script src="../../../_static/jquery.js"></script>
+        <script src="../../../_static/underscore.js"></script>
+        <script src="../../../_static/doctools.js"></script>
+        <script src="../../../_static/language_data.js"></script>
+        <script src="../../../_static/translations.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="../../../genindex.html" />
+    <link rel="search" title="搜索" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../../index.html" class="icon icon-home"> WordMarker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../wordmarker.contexts.html">wordmarker.contexts package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wordmarker.creatives.html">wordmarker.creatives package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wordmarker.data.html">wordmarker.data package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wordmarker.loaders.html">wordmarker.loaders package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wordmarker.templates.html">wordmarker.templates package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../wordmarker.utils.html">wordmarker.utils package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">WordMarker</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../../index.html">模块代码</a> &raquo;</li>
+        
+      <li>wordmarker.templates.word_template</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>wordmarker.templates.word_template 源代码</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABCMeta</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span> <span class="nn">wordmarker.contexts</span> <span class="kn">import</span> <span class="n">YamlContext</span><span class="p">,</span> <span class="n">SystemContext</span>
+<span class="kn">from</span> <span class="nn">wordmarker.creatives</span> <span class="kn">import</span> <span class="n">FactoryBean</span><span class="p">,</span> <span class="n">AbstractBuilder</span>
+<span class="kn">from</span> <span class="nn">wordmarker.data</span> <span class="kn">import</span> <span class="n">DocxFormatter</span>
+<span class="kn">from</span> <span class="nn">wordmarker.loaders</span> <span class="kn">import</span> <span class="n">DefaultResourceLoader</span>
+<span class="kn">from</span> <span class="nn">wordmarker.utils</span> <span class="kn">import</span> <span class="n">PathUtils</span>
+
+
+<div class="viewcode-block" id="DocxOperations"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.DocxOperations">[文档]</a><span class="k">class</span> <span class="nc">DocxOperations</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">ABCMeta</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ::</span>
+
+<span class="sd">        docx文件的相关操作的抽象类</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="DocxHelper"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.DocxHelper">[文档]</a><span class="k">class</span> <span class="nc">DocxHelper</span><span class="p">(</span><span class="n">DefaultResourceLoader</span><span class="p">,</span> <span class="n">DocxFormatter</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ::</span>
+
+<span class="sd">        通过读取配置文件，获取docx文件模板的相关信息</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__docx_helper</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__docx</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__yaml_context</span><span class="p">:</span> <span class="n">YamlContext</span> <span class="o">=</span> <span class="n">FactoryBean</span><span class="p">()</span><span class="o">.</span><span class="n">get_bean</span><span class="p">(</span><span class="s2">&quot;yaml_context&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_docx_in_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_docx_in_path</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_docx_out_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_docx_out_path</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_docx_in_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. note::</span>
+
+<span class="sd">            通过读取yaml文件的 ``data.docx.input.path`` 属性，获取输入的docx文件或目录的绝对路径</span>
+
+<span class="sd">        :return: - docx文件或目录的绝对路径</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">prop</span> <span class="o">=</span> <span class="s2">&quot;data.docx.input.path&quot;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__yaml_context</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+        <span class="n">docx_in_path</span> <span class="o">=</span> <span class="n">PathUtils</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__yaml_context</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">get_relative_path</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_docx_in_path</span> <span class="o">=</span> <span class="n">docx_in_path</span>
+        <span class="k">return</span> <span class="n">docx_in_path</span>
+
+    <span class="k">def</span> <span class="nf">_get_docx_out_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. note::</span>
+
+<span class="sd">            通过读取yaml文件的 ``data.docx.output.dir`` 属性，获取输出的docx目录的绝对路径</span>
+
+<span class="sd">        :return: - docx目录的绝对路径</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">prop</span> <span class="o">=</span> <span class="s2">&quot;data.docx.output.dir&quot;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__yaml_context</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">PathUtils</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__yaml_context</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">get_relative_path</span><span class="p">()</span>
+
+<div class="viewcode-block" id="DocxHelper.get_docx"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.DocxHelper.get_docx">[文档]</a>    <span class="k">def</span> <span class="nf">get_docx</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. note::</span>
+
+<span class="sd">            获取docx文件的绝对路径，如果是doc文件，则转换为docx文件放在原doc文件的目录下</span>
+
+<span class="sd">        :return: - yaml文件中 ``data.docx.input.path`` 是目录，再返回当前目录下docx文件的绝对路径</span>
+
+<span class="sd">                 - yaml文件中 ``data.docx.input.path`` 是文件，返回docx文件的绝对路径</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">docx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_resource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_docx_in_path</span><span class="p">)</span><span class="o">.</span><span class="n">get_file</span><span class="p">()</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_resource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_docx_in_path</span><span class="p">)</span><span class="o">.</span><span class="n">is_file</span><span class="p">():</span>
+            <span class="c1"># 是目录</span>
+            <span class="n">docx</span> <span class="o">=</span> <span class="n">PathUtils</span><span class="o">.</span><span class="n">filter_file</span><span class="p">(</span><span class="n">docx</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;.doc&#39;</span><span class="p">,</span> <span class="s1">&#39;.docx&#39;</span><span class="p">])</span>
+            <span class="n">doc</span> <span class="o">=</span> <span class="n">PathUtils</span><span class="o">.</span><span class="n">filter_file</span><span class="p">(</span><span class="n">docx</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;.doc&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docx_in_path</span><span class="p">)</span>
+                <span class="n">docx</span> <span class="o">=</span> <span class="n">PathUtils</span><span class="o">.</span><span class="n">filter_file</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_resource</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_docx_in_path</span><span class="p">)</span><span class="o">.</span><span class="n">get_file</span><span class="p">(),</span> <span class="p">[</span><span class="s1">&#39;.docx&#39;</span><span class="p">])</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">return</span> <span class="n">docx</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="c1"># 是文件</span>
+            <span class="n">docx</span> <span class="o">=</span> <span class="n">PathUtils</span><span class="o">.</span><span class="n">filter_file</span><span class="p">(</span><span class="n">docx</span><span class="p">,</span> <span class="p">[</span><span class="s1">&#39;.doc&#39;</span><span class="p">,</span> <span class="s1">&#39;.docx&#39;</span><span class="p">])</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">docx</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">None</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">doc</span> <span class="o">=</span> <span class="n">PathUtils</span><span class="o">.</span><span class="n">filter_file</span><span class="p">(</span><span class="n">docx</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;.doc&#39;</span><span class="p">])</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">doc</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">doc</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_docx_in_path</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">res</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">docx</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+                    <span class="n">directory</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">file_name</span> <span class="o">=</span> <span class="n">res</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">docx</span> <span class="o">=</span> <span class="n">directory</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_separator</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">file_name</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;.docx&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">docx</span> <span class="o">=</span> <span class="n">docx</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__docx</span> <span class="o">=</span> <span class="n">docx</span>
+        <span class="k">return</span> <span class="n">docx</span></div>
+
+<div class="viewcode-block" id="DocxHelper.get_docx_file_name"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.DocxHelper.get_docx_file_name">[文档]</a>    <span class="k">def</span> <span class="nf">get_docx_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. note::</span>
+
+<span class="sd">            获取docx文件的文件名</span>
+
+<span class="sd">        :return: - 是docx文件，返回文件的名字</span>
+<span class="sd">                 - 是目录，返回当前目录下的所有docx文件的文件名</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">docx</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__docx</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">docx</span><span class="p">)</span> <span class="ow">is</span> <span class="nb">list</span><span class="p">:</span>
+            <span class="n">temp_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">docx</span><span class="p">:</span>
+                <span class="n">temp_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">item</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span>
+            <span class="k">return</span> <span class="n">temp_list</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">docx</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">docx_in_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. note::</span>
+
+<span class="sd">            通过读取yaml文件的 ``data.docx.input.path`` 属性，获取输入的docx文件或目录的绝对路径</span>
+
+<span class="sd">        :return: - docx文件或目录的绝对路径</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docx_in_path</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">docx_out_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. note::</span>
+
+<span class="sd">            通过读取yaml文件的 ``data.docx.output.dir`` 属性，获取输出的docx目录的绝对路径</span>
+
+<span class="sd">        :return: - docx目录的绝对路径</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_docx_out_path</span>
+
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__docx_helper</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">__docx_helper</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__docx_helper</span></div>
+
+
+<div class="viewcode-block" id="ImgHelper"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.ImgHelper">[文档]</a><span class="k">class</span> <span class="nc">ImgHelper</span><span class="p">(</span><span class="n">SystemContext</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ::</span>
+
+<span class="sd">        通过读取配置文件，获取img文件的相关信息</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">__img_helper</span> <span class="o">=</span> <span class="kc">None</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__yaml_context</span><span class="p">:</span> <span class="n">YamlContext</span> <span class="o">=</span> <span class="n">FactoryBean</span><span class="p">()</span><span class="o">.</span><span class="n">get_bean</span><span class="p">(</span><span class="s2">&quot;yaml_context&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__img_out_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_get_img_out_path</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">_get_img_out_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">prop</span> <span class="o">=</span> <span class="s2">&quot;data.img.output.dir&quot;</span>
+        <span class="n">value</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__yaml_context</span><span class="o">.</span><span class="n">get_value</span><span class="p">(</span><span class="n">prop</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">PathUtils</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__yaml_context</span><span class="o">.</span><span class="n">path</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span><span class="o">.</span><span class="n">get_relative_path</span><span class="p">()</span>
+
+<div class="viewcode-block" id="ImgHelper.get_img_file"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.ImgHelper.get_img_file">[文档]</a>    <span class="k">def</span> <span class="nf">get_img_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">img_name</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. note::</span>
+
+<span class="sd">            根据图片的名字，获取图片的绝对路径</span>
+
+<span class="sd">        .. warning::</span>
+
+<span class="sd">            必须先将图片输出到输出目录下，才能获取到</span>
+
+<span class="sd">        :param img_name: 图片的名字</span>
+<span class="sd">        :return: - 图片的绝对路径</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">final_path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">__img_out_path</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">path_separator</span> <span class="o">+</span> <span class="n">img_name</span>
+        <span class="k">return</span> <span class="n">final_path</span></div>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">img_out_path</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        .. note::</span>
+
+<span class="sd">            通过读取yaml文件的 ``data.img.output.dir`` 属性，获取输出的img目录的绝对路径</span>
+
+<span class="sd">        :return: - img目录的绝对路径</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__img_out_path</span>
+
+    <span class="k">def</span> <span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">if</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__img_helper</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="bp">cls</span><span class="o">.</span><span class="n">__img_helper</span> <span class="o">=</span> <span class="nb">object</span><span class="o">.</span><span class="fm">__new__</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="o">.</span><span class="n">__img_helper</span></div>
+
+
+<div class="viewcode-block" id="WordTemplate"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.WordTemplate">[文档]</a><span class="k">class</span> <span class="nc">WordTemplate</span><span class="p">(</span><span class="n">DocxHelper</span><span class="p">,</span> <span class="n">AbstractBuilder</span><span class="p">,</span> <span class="n">ImgHelper</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    ::</span>
+
+<span class="sd">        操作docx文件的模板</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">()</span>
+
+<div class="viewcode-block" id="WordTemplate.append"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.WordTemplate.append">[文档]</a>    <span class="k">def</span> <span class="nf">append</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="WordTemplate.build"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.WordTemplate.build">[文档]</a>    <span class="k">def</span> <span class="nf">build</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="WordTemplate.append_img"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.WordTemplate.append_img">[文档]</a>    <span class="k">def</span> <span class="nf">append_img</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="WordTemplate.append_text"><a class="viewcode-back" href="../../../wordmarker.templates.html#wordmarker.templates.word_template.WordTemplate.append_text">[文档]</a>    <span class="k">def</span> <span class="nf">append_text</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, chensixiang
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
