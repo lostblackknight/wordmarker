@@ -4,19 +4,26 @@ from wordmarker.utils import log
 
 class YamlUtils:
     """
-    yaml文件工具类
+    ::
+
+        yaml文件工具类
     """
 
     @log
+    def __init__(self):
+        pass
+
     def get_value(self, yaml_dict, prop_list, temp_prop, file_name):
         """
-        递归调用获取yaml文件中属性对应的值
+        .. note::
+
+            递归调用获取yaml文件中属性对应的值
 
         :param yaml_dict: yaml文件中的数据，以字典形式存放
-        :param prop_list: 属性列表，例如：pdbc.engine.url -> [pdbc, engine, url]
-        :param temp_prop: 临时属性，在日志中进行提示。例如，pdbc.engine.url
+        :param prop_list: 属性列表，例如： ``pdbc.engine.url`` -> ``[pdbc, engine, url]``
+        :param temp_prop: 临时属性，在日志中进行提示，例如： ``pdbc.engine.url``
         :param file_name: yaml文件名
-        :return: yaml文件中属性对应的值
+        :return: - yaml文件中属性对应的值
         """
         prop_list = prop_list
         if (len(prop_list) == 1) and (len(prop_list[0]) == 0):

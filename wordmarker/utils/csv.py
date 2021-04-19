@@ -2,19 +2,26 @@ import pandas as pd
 
 
 class CsvUtils(object):
+    """
+    ::
+
+        csv文件工具类
+    """
 
     @classmethod
     def read_csv(cls, file, skiprows=0, nrows=None, skipcols=0, ncols=None, encoding='utf-8'):
         """
-        读取csv文件
+        .. note::
 
-        :param file: 文件
+            读取csv文件
+
+        :param file: csv文件
         :param skiprows: 跳过的行数
         :param nrows: 要获取的行数
         :param skipcols: 跳过的列数
         :param ncols: 要获取的列数
         :param encoding: 编码方式
-        :return: 读取的结果
+        :return: - 读取的结果
         """
         if nrows is not None and ncols is not None:
             usecols = cls.__generate_usecols(skipcols=skipcols, ncols=ncols)

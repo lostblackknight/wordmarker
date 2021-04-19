@@ -6,7 +6,9 @@ from wordmarker.utils import log
 
 class YamlResourceLoader(DefaultResourceLoader):
     """
-    加载yaml文件资源的类
+    ::
+
+        yaml文件的资源加载器
     """
 
     @log
@@ -14,6 +16,20 @@ class YamlResourceLoader(DefaultResourceLoader):
         super().__init__()
 
     def load(self, resource: Resource):
+        """
+        .. note::
+
+            加载yaml资源
+
+        :param resource: yaml资源实例
+        :return: - yaml资源为文件，获取文件中的数据
+
+                 - yaml文件资源为目录，获取目录下所有yaml文件中的数据，返回一个字典
+
+                    - key为文件的绝对路径
+
+                    - value为文件的数据
+        """
         if resource.exists():
             if resource.is_file():
                 try:

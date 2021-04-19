@@ -9,21 +9,44 @@ from wordmarker.utils import log
 
 class Formatter(metaclass=ABCMeta):
     """
-    格式化的抽象类
+    ::
+
+        格式化的抽象类
     """
 
     @abstractmethod
-    def _format(self, *args):
+    def format(self, *args):
+        """
+        .. note::
+
+            格式化数据
+
+        :param args: 数据
+        :return: - 格式化后的数据
+        """
         pass
 
 
 class DocxFormatter(Formatter, SystemContext):
     """
-    将doc文件转换为docx文件
+    ::
+
+        格式化.docx文件
     """
 
     @log
-    def _format(self, doc_path_list: list, docx_path: str):
+    def __init__(self):
+        pass
+
+    def format(self, doc_path_list: list, docx_path: str):
+        """
+        .. note::
+
+            将存放 ``.doc`` 和 ``.docx`` 文件的路径中所有的 ``.doc`` 文件转换为 ``.docx`` 文件
+
+        :param doc_path_list: 输入的路径列表
+        :param docx_path: 输出的目录
+        """
         EnsureDispatch('Word.Application')
         msword = DispatchEx("Word.Application")
         msword.Visible = False  # 是否可见
@@ -52,21 +75,33 @@ class DocxFormatter(Formatter, SystemContext):
 
 class SqlFormatter(Formatter):
     """
-    格式化sql语句
+    ::
+
+        格式化sql语句
     """
 
-    def _format(self, sql):
+    def format(self, sql):
         """
-        格式化用户输入的sql
+        .. note::
 
-        例如：
-            *输入*：     select * from t_user where username=? and password=?
+            格式化用户输入的sql语句
 
-            *格式化*：   select * from t_user where username=:a and password=:b
+            例如：
 
-            *注意*：     拼接的 :a, :b 使用的是26个字母，也就是说一次查询的?，不能超过26个，超过26个后情况未知...
+                .. code-block:: sql
+                    :linenos:
+
+                    -- 输入 --
+                    select * from t_user where username=? and password=?
+                    -- 输出 --
+                    select * from t_user where username=:a and password=:b
+
+        .. caution::
+
+            拼接的 ``:a`` ``:b`` 使用的是26个字母，也就是说一次查询的 ``?`` ，不能超过26个。
+
         :param sql: sql语句
-        :return: 格式化后的sql语句
+        :return: - 格式化后的sql语句
         """
         sql_list = list(sql)
         index = 0

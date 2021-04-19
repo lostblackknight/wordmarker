@@ -5,7 +5,9 @@ from wordmarker.utils import log
 
 class DefaultResourceLoader(ResourceLoader):
     """
-    默认的加载资源的类
+    ::
+
+        默认的资源加载器
     """
 
     @log
@@ -14,22 +16,29 @@ class DefaultResourceLoader(ResourceLoader):
 
     def get_resource(self, path=None) -> Resource:
         """
-        获取资源
+        .. note::
 
-        :param path: 文件或目录
-        :return: 资源实例
+            获取资源
+
+        :param path: 路径
+        :return: - 资源实例
         """
         return Resource(path, self)
 
     def load(self, resource: Resource):
         """
-        加载资源
+        .. note::
+
+            加载资源
 
         :param resource: 资源实例
-        :return: 资源中的数据<br>
-                 资源为文件，获取文件中的数据<br>
-                 资源为目录，获取目录下所有文件的数据，返回一个字典<br>
-                 key为文件的绝对路径，value为文件的数据
+        :return: - 资源为文件，获取文件中的数据
+
+                 - 资源为目录，获取目录下所有文件中的数据，返回一个字典
+
+                    - key为文件的绝对路径
+
+                    - value为文件的数据
         """
         if resource.exists():
             if resource.is_file():

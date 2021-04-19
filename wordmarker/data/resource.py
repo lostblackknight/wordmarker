@@ -6,7 +6,9 @@ from wordmarker.utils import log
 
 class Resource(SystemContext):
     """
-    资源类，包含与资源相关的属性和判断的方法
+    ::
+
+        资源类，包含与资源相关的属性和判断的方法
     """
 
     @log
@@ -16,28 +18,37 @@ class Resource(SystemContext):
 
     def is_file(self):
         """
-        判断是否为文件
+        .. note::
 
-        :return: 是文件，返回True<br>
-                 不是文件，返回False
+            判断是否为文件
+
+        :return: - 是文件，返回True
+
+                 - 不是文件，返回False
         """
         return os.path.isfile(self.__path)
 
     def exists(self):
         """
-        判断文件或目录是否存在
+        .. note::
 
-        :return: 存在，返回True<br>
-                 不存在，返回False
+            判断文件或目录是否存在
+
+        :return: - 存在，返回True
+
+                 - 不存在，返回False
         """
         return os.path.exists(self.__path)
 
     def get_file_name(self):
         """
-        获取文件名
+        .. note::
 
-        :return: 是文件，返回文件的名字<br>
-                 是目录，返回当前目录下的所有文件的文件名
+            获取文件名
+
+        :return: - 是文件，返回文件的名字
+
+                 - 是目录，返回当前目录下的所有文件的文件名
         """
         if self.exists():
             if self.is_file():
@@ -50,10 +61,13 @@ class Resource(SystemContext):
 
     def get_file(self):
         """
-        获取文件，返回文件的绝对路径
+        .. note::
 
-        :return: 是文件，返回文件的绝对路径<br>
-                 是目录，返回当前目录下所有文件的绝对路径
+            获取文件，返回文件的绝对路径
+
+        :return: - 是文件，返回文件的绝对路径
+
+                 - 是目录，返回当前目录下所有文件的绝对路径
         """
         if self.exists():
             if self.is_file():
@@ -68,10 +82,13 @@ class Resource(SystemContext):
 
     def get_dir(self):
         """
-        获取目录，返回目录的绝对路径
+        .. note::
 
-        :return: 是目录，返回目录的绝对路径<br>
-                 是文件，返回文件所在的目录
+            获取目录，返回目录的绝对路径
+
+        :return: - 是目录，返回目录的绝对路径
+
+                 - 是文件，返回文件所在的目录
         """
         if self.exists():
             if not self.is_file():
@@ -84,11 +101,17 @@ class Resource(SystemContext):
 
     def get_file_encoding(self):
         """
-        获取文件的编码
+        .. note::
 
-        :return: 是文件，获取文件的编码，返回一个文件编码的字符串<br>
-                 是目录，获取当前目录下所有文件的编码，返回一个字典<br>
-                 key为文件的绝对路径，value为文件的编码
+            获取文件的编码
+
+        :return: - 是文件，获取文件的编码，返回一个文件编码的字符串
+
+                 - 是目录，获取当前目录下所有文件的编码，返回一个字典
+
+                    - key为文件的绝对路径
+
+                    - value为文件的编码
         """
         if self.exists():
             if self.is_file():
@@ -127,11 +150,17 @@ class Resource(SystemContext):
 
     def get_file_name_prefix_suffix(self):
         """
-        返回文件的前缀和后缀
+        .. note::
 
-        :return: 是文件，获取文件的前缀和后缀，返回一个元组<br>
-                 是目录，获取目录下所有文件的前缀和后缀，返回一个字典<br>
-                 key为文件名，value为由文件的前缀和后缀组成的元组
+            获取文件的前缀和后缀
+
+        :return: - 是文件，获取文件的前缀和后缀，返回一个元组
+
+                 - 是目录，获取目录下所有文件的前缀和后缀，返回一个字典
+
+                    - key为文件名
+
+                    - value为由文件的前缀和后缀组成的元组
         """
         if self.exists():
             if self.is_file():
@@ -148,8 +177,10 @@ class Resource(SystemContext):
 
     def get_loader(self):
         """
-        获取加载当前资源的加载器
+        .. note::
 
-        :return: 加载器
+            获取加载当前资源的加载器
+
+        :return: - 加载器
         """
         return self.__loader

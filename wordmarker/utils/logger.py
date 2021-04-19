@@ -4,16 +4,20 @@ import coloredlogs
 
 class LoggerFactory(object):
     """
-    logger工厂，获取logger对象
+    ::
+
+        logger工厂，获取logger对象
     """
 
     @staticmethod
     def get_logger(logger_name=None):
         """
-        获取日志对象logger
+        .. note::
 
-        :param logger_name: 名字
-        :return: 日志对象
+            获取日志对象 ``logger``
+
+        :param logger_name: ``logger`` 名字
+        :return: - 日志对象 ``logger``
         """
         logger = logging.getLogger(logger_name)
         coloredlogs.install(logging.INFO)
@@ -22,15 +26,21 @@ class LoggerFactory(object):
 
 def log(fun):
     """
-    装饰器，为类注入logger对象
+    .. note::
 
-    1.在类的__init__方法上加上@Log，可以通过类的 "self.logger" 获取到logger对象
+        装饰器，为类注入logger对象
 
-    2.注意：只能放在类的__init__方法上，不能放在类上，放在类上会修改类的元类
+    .. tip::
 
-    3.如果当前类是被继承或继承了某个类，会导致元类冲突的异常，所以目前只支持放在__init__方法上
+        在类的 ``__init__`` 方法上加上 ``@log`` ，可以通过类的 ``self._logger`` 获取到 ``logger`` 对象，来打印日志
 
-    4.你也可以直接使用LoggerFactory获取logger对象，来打印日志。
+        你也可以直接使用 ``LoggerFactory`` 获取 ``logger`` 对象，来打印日志
+
+    .. error::
+
+        只能放在类的 ``__init__`` 方法上，不能放在类上，放在类上会修改类的元类
+
+        如果当前类是被继承或继承了某个类，会导致元类冲突的异常，所以目前只支持放在 ``__init__`` 方法上
     """
 
     def wrapper(self, *args):

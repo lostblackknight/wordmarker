@@ -17,25 +17,51 @@ from wordmarker.utils import log
 
 class PdbcOperations(metaclass=ABCMeta):
     """
-    数据库的相关操作
+    ::
+
+        数据库的相关操作的抽象类
     """
 
     @abstractmethod
     def execute(self, sql):
+        """
+        .. note::
+
+            执行sql语句，建议sql类型为DDL（数据定义语言）时候使用
+
+        :param sql: sql语句
+        """
         pass
 
     @abstractmethod
     def update(self, sql):
+        """
+        .. note::
+
+            更新数据库
+
+        :param sql: sql语句
+        """
         pass
 
     @abstractmethod
     def query(self, sql):
+        """
+        .. note::
+
+            查询数据库
+
+        :param sql: sql语句
+        :return: - 查询结果
+        """
         pass
 
 
 class PdbcHelper:
     """
-    通过读取配置文件获取数据库的信息，进而建立连接
+    ::
+
+        通过读取配置文件获取数据库的信息，进而建立连接
     """
     __engine_dict = {}  # sqlalchemy.create_engine方法中传入的值的字典
     __pdbc_helper = None
@@ -136,12 +162,16 @@ class PdbcHelper:
 
     def set_engine(self, **kwargs):
         """
-        设置引擎
+        .. note::
 
-        你可以在调用PdbcTemplate内的方法之前，设置设置引擎需要的其他参数（不包括配置文件内的参数）
+            设置引擎
+
+        .. tip::
+
+            你可以在调用PdbcTemplate内的方法之前，设置引擎需要的其他参数（不包括配置文件内的参数）
 
         :param kwargs: 除去配置文件中其他的值，采用key=value的形式
-        :return: engine对象
+        :return: - engine对象
         """
         self._logger: Logger
         url = self._get_url()
@@ -171,10 +201,27 @@ class PdbcHelper:
 
     @property
     def engine(self) -> Engine:
+        """
+        .. note::
+            获取引擎对象
+
+        :return: - 引擎对象engine
+        """
         return self._engine
 
     @property
     def engine_dict(self):
+        """
+        .. note::
+
+            获取引擎对象中设置的值
+
+        :return: - 引擎对象中设置的值
+
+                    - key为属性
+
+                    - value为对应的值
+        """
         return self.__engine_dict
 
     def __new__(cls, *args, **kwargs):
@@ -185,7 +232,9 @@ class PdbcHelper:
 
 class PdbcTemplate(PdbcOperations, PdbcHelper, SqlFormatter):
     """
-    操作数据库的模板
+    ::
+
+        操作数据库的模板
     """
 
     @log
@@ -194,11 +243,15 @@ class PdbcTemplate(PdbcOperations, PdbcHelper, SqlFormatter):
 
     def execute(self, sql, *args, **kwargs):
         """
-        使用sqlalchemy中的方法执行sql，建议sql类型为DDL(数据定义语言)时候使用
+        .. note::
 
-        如果sql为select，建议使用query方法
+            使用sqlalchemy中的方法执行sql，建议sql类型为DDL（数据定义语言）时候使用
 
-        如果sql为update，delete，insert，建议使用update方法
+        .. tip::
+
+            如果sql为 ``select``，建议使用query方法
+
+            如果sql为 ``update`` ，``delete`` ，``insert`` ，建议使用update方法
 
         :param sql: sql语句
         """
@@ -207,12 +260,14 @@ class PdbcTemplate(PdbcOperations, PdbcHelper, SqlFormatter):
 
     def update(self, sql, *args):
         """
-        更新数据库
+        .. note::
+
+            更新数据库
 
         :param sql: sql语句
         :param args: 问号对应的值
         """
-        sql = self._format(sql)
+        sql = self.format(sql)
         key_list = []
         value_list = [*args]
         params = {}
@@ -232,13 +287,15 @@ class PdbcTemplate(PdbcOperations, PdbcHelper, SqlFormatter):
 
     def query(self, sql, *args) -> Union[DataFrame, Iterator[DataFrame]]:
         """
-        查询数据库
+        .. note::
+
+            查询数据库
 
         :param sql: sql语句
         :param args: 问号对应的值
-        :return: 数据
+        :return: - 查询的数据
         """
-        sql = self._format(sql)
+        sql = self.format(sql)
         key_list = []
         value_list = [*args]
         params = {}
@@ -264,9 +321,16 @@ class PdbcTemplate(PdbcOperations, PdbcHelper, SqlFormatter):
                     columns=None,
                     chunksize: Optional[int] = None) -> Union[DataFrame, Iterator[DataFrame]]:
         """
-        使用pandas.read_sql_table方法，读取数据
+        .. note::
 
-        详情请看 https://pandas.pydata.org/docs/reference/api/pandas.read_sql_table.html#pandas.read_sql_table
+            使用 ``pandas.read_sql_table`` 方法，读取整张表的数据
+
+        .. tip::
+
+            `query_table的参数详情 <https://pandas.pydata.org/docs/reference/api/pandas.read_sql_table.html#pandas.read_sql_table>`_ ，
+            请访问 `pandas官网`_ ，了解更多信息
+
+        :return: - 查询的数据
         """
         with self.engine.connect() as con:
             return pd.read_sql_table(table_name,
@@ -290,9 +354,16 @@ class PdbcTemplate(PdbcOperations, PdbcHelper, SqlFormatter):
                      dtype=None,
                      method=None):
         """
-        使用pandas.to_sql方法，将数据写入数据库中的表中
+        .. note::
 
-        详情请看 https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html#pandas.DataFrame.to_sql
+            使用 ``pandas.to_sql`` 方法，将数据写入数据库中的一张表中
+
+        .. tip::
+
+            `update_table的参数详情 <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html#pandas.DataFrame.to_sql>`_ ，
+            请访问 `pandas官网`_ ，了解更多信息
+
+        :param data: 数据框
         """
         with self.engine.connect() as con:
             data.to_sql(name,

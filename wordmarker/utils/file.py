@@ -5,7 +5,9 @@ from wordmarker.contexts import SystemContext
 
 class PathUtils(SystemContext):
     """
-    路径工具类
+    ::
+
+        路径工具类
     """
 
     def __init__(self, src, tgt):
@@ -14,22 +16,29 @@ class PathUtils(SystemContext):
 
     def get_relative_path(self):
         """
-        将两个路径拼接起来
+        .. note::
 
-        例子：
-            src = c:/a/b/c
+            将两个路径拼接起来
 
-            tgt = ../../d/c.txt
+            例子：
 
-            final = c:/a/d/c.txt
+                ::
 
-            src = c:/a/b/c/foo.txt
+                    src = c:/a/b/c
 
-            tgt = ../../d/c.txt
+                    tgt = ../../d/c.txt
 
-            final = c:/a/d/c.txt
+                    final = c:/a/d/c.txt
 
-        :return: 最终路径
+                    -------------------------------
+
+                    src = c:/a/b/c/foo.txt
+
+                    tgt = ../../d/c.txt
+
+                    final = c:/a/d/c.txt
+
+        :return: - 最终路径
         """
         src: str = self.__src
         tgt: str = self.__tgt
@@ -55,11 +64,13 @@ class PathUtils(SystemContext):
     @staticmethod
     def filter_file(file_list: Union[list, str], suffix_list: Union[list, str]):
         """
-        过滤目录或者文件，通过后缀名
+        .. note::
 
-        :param file_list: 文件或目录列表
+            通过后缀名，过滤文件
+
+        :param file_list: 文件或文件列表
         :param suffix_list: 后缀或后缀列表
-        :return: 过滤后的文件列表
+        :return: - 过滤后的文件或文件列表
         """
         final_list = []
         if type(file_list) is not list:

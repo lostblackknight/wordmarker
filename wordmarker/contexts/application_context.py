@@ -5,11 +5,14 @@ from wordmarker.creatives import BeanFactory, FactoryBean
 
 class WordMarkerContext(Context):
     """
-    **WordMarker** 的上下文，你可以从上下文中获取到：
+    ::
 
-    **bean_factory**：可以获取到工厂里已经存在的bean实例的相关信息
+        应用上下文，你可以从上下文中获取到：
 
-    **yaml_context**：加载的yaml文件的相关信息
+        bean_factory：工厂里存放的bean实例的相关信息
+
+        yaml_context：加载的yaml文件的相关信息
+
     """
     __word_marker_context = None
     __bean_factory = None  # getter方法获取
@@ -68,18 +71,22 @@ class WordMarkerContext(Context):
     @property
     def bean_factory(self):
         """
-        获取工厂
+        .. note::
 
-        :return: 工厂
+            获取bean工厂
+
+        :return: - bean工厂
         """
         return self.__bean_factory
 
     @property
     def yaml_context(self):
         """
-        获取yaml上下文
+        .. note::
 
-        :return: yaml上下文
+            获取yaml文件的上下文
+
+        :return: - yaml文件的上下文
         """
         return self.__yaml_context
 
