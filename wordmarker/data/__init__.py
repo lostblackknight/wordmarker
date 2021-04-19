@@ -7,11 +7,13 @@
     当前模块用来处理数据和资源。
 
     1. ``wordmarker.data.resource``
+
         ::
 
             加载的资源，包含和资源相关的属性和判断。
 
     2. ``wordmarker.data.formatter``
+
         ::
 
             格式化数据，对某些数据进行处理。
