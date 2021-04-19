@@ -1,0 +1,864 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="zh-CN" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="zh-CN" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>wordmarker.templates package &mdash; WordMarker  文档</title>
+  
+
+  
+  
+    <link rel="shortcut icon" href="_static/word_marker.ico"/>
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script src="_static/translations.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="索引" href="genindex.html" />
+    <link rel="search" title="搜索" href="search.html" />
+    <link rel="next" title="wordmarker.utils package" href="wordmarker.utils.html" />
+    <link rel="prev" title="wordmarker.loaders package" href="wordmarker.loaders.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> WordMarker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="wordmarker.contexts.html">wordmarker.contexts package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wordmarker.creatives.html">wordmarker.creatives package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wordmarker.data.html">wordmarker.data package</a></li>
+<li class="toctree-l1"><a class="reference internal" href="wordmarker.loaders.html">wordmarker.loaders package</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">wordmarker.templates package</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-wordmarker.templates.csv_template">wordmarker.templates.csv_template module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-wordmarker.templates.pdbc_template">wordmarker.templates.pdbc_template module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-wordmarker.templates.word_template">wordmarker.templates.word_template module</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="wordmarker.utils.html">wordmarker.utils package</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">WordMarker</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content style-external-links">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>wordmarker.templates package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/wordmarker.templates.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-wordmarker.templates">
+<span id="wordmarker-templates-package"></span><h1>wordmarker.templates package<a class="headerlink" href="#module-wordmarker.templates" title="永久链接至标题">¶</a></h1>
+<dl class="field-list">
+<dt class="field-odd">作者</dt>
+<dd class="field-odd"><p>陈思祥</p>
+</dd>
+<dt class="field-even">时间</dt>
+<dd class="field-even"><p>2021年4月</p>
+</dd>
+<dt class="field-odd">概述</dt>
+<dd class="field-odd"><p>当前模块是WordMarker的核心模块，可以读写csv文件，操纵数据库，读写docx文件等。</p>
+<ol class="arabic">
+<li><p><code class="docutils literal notranslate"><span class="pre">wordmarker.templates.pdbc_template</span></code></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>操纵数据库的模板。
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wordmarker.templates.csv_template</span></code></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>读写csv文件的模板。
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+<li><p><code class="docutils literal notranslate"><span class="pre">wordmarker.templates.word_template</span></code></p>
+<blockquote>
+<div><div class="highlight-default notranslate"><div class="highlight"><pre><span></span>读写docx文件的模板。
+</pre></div>
+</div>
+</div></blockquote>
+</li>
+</ol>
+</dd>
+</dl>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="永久链接至标题">¶</a></h2>
+</div>
+<div class="section" id="module-wordmarker.templates.csv_template">
+<span id="wordmarker-templates-csv-template-module"></span><h2>wordmarker.templates.csv_template module<a class="headerlink" href="#module-wordmarker.templates.csv_template" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="wordmarker.templates.csv_template.CsvHelper">
+<em class="property">class </em><code class="sig-name descname">CsvHelper</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvHelper"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvHelper" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="wordmarker.loaders.html#wordmarker.loaders.default_resource_loader.DefaultResourceLoader" title="wordmarker.loaders.default_resource_loader.DefaultResourceLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.loaders.default_resource_loader.DefaultResourceLoader</span></code></a>, <a class="reference internal" href="wordmarker.contexts.html#wordmarker.contexts.system_context.SystemContext" title="wordmarker.contexts.system_context.SystemContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.contexts.system_context.SystemContext</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>通过读取配置文件，获取csv文件的相关信息
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.templates.csv_template.CsvHelper.get_csv">
+<code class="sig-name descname">get_csv</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvHelper.get_csv"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvHelper.get_csv" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取csv文件的绝对路径</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>yaml文件中 <code class="docutils literal notranslate"><span class="pre">data.csv.input.path</span></code> 是目录，返回当前目录下的所有csv文件的绝对路径</p></li>
+<li><p>yaml文件中 <code class="docutils literal notranslate"><span class="pre">data.csv.input.path</span></code> 是文件，返回当前文件的绝对路径</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.csv_template.CsvHelper.get_csv_file_name">
+<code class="sig-name descname">get_csv_file_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvHelper.get_csv_file_name"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvHelper.get_csv_file_name" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取csv文件的文件名</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>是文件，返回文件的名字</p></li>
+<li><p>是目录，返回当前目录下的所有文件的文件名</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.csv_template.CsvHelper.get_csv_in_path">
+<code class="sig-name descname">get_csv_in_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvHelper.get_csv_in_path"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvHelper.get_csv_in_path" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>通过读取yaml文件的 <code class="docutils literal notranslate"><span class="pre">data.csv.in.path</span></code> 属性，获取输入的csv文件或目录的绝对路径</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>csv文件或目录的绝对路径</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.csv_template.CsvHelper.get_csv_out_path">
+<code class="sig-name descname">get_csv_out_path</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvHelper.get_csv_out_path"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvHelper.get_csv_out_path" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>通过读取yaml文件的 <code class="docutils literal notranslate"><span class="pre">data.csv.output.dir</span></code> 属性，获取输出的csv的目录的绝对路径</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>csv目录的绝对路径</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wordmarker.templates.csv_template.CsvOperations">
+<em class="property">class </em><code class="sig-name descname">CsvOperations</code><a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvOperations"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvOperations" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">csv文件的相关操作的抽象类</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.templates.csv_template.CsvOperations.csv_to_df">
+<em class="property">abstract </em><code class="sig-name descname">csv_to_df</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvOperations.csv_to_df"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvOperations.csv_to_df" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>将csv文件转换为 <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>数据框</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.csv_template.CsvOperations.df_to_csv">
+<em class="property">abstract </em><code class="sig-name descname">df_to_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvOperations.df_to_csv"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvOperations.df_to_csv" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>将 <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> 转换为csv文件</p>
+</div>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wordmarker.templates.csv_template.CsvTemplate">
+<em class="property">class </em><code class="sig-name descname">CsvTemplate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvTemplate"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvTemplate" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#wordmarker.templates.csv_template.CsvOperations" title="wordmarker.templates.csv_template.CsvOperations"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.templates.csv_template.CsvOperations</span></code></a>, <a class="reference internal" href="#wordmarker.templates.csv_template.CsvHelper" title="wordmarker.templates.csv_template.CsvHelper"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.templates.csv_template.CsvHelper</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">操作csv文件的模板</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.templates.csv_template.CsvTemplate.csv_to_df">
+<code class="sig-name descname">csv_to_df</code><span class="sig-paren">(</span><em class="sig-param">sep=&lt;object object&gt;</em>, <em class="sig-param">delimiter=None</em>, <em class="sig-param">header='infer'</em>, <em class="sig-param">names=None</em>, <em class="sig-param">index_col=0</em>, <em class="sig-param">usecols=None</em>, <em class="sig-param">squeeze=False</em>, <em class="sig-param">prefix=None</em>, <em class="sig-param">mangle_dupe_cols=True</em>, <em class="sig-param">dtype=None</em>, <em class="sig-param">engine=None</em>, <em class="sig-param">converters=None</em>, <em class="sig-param">true_values=None</em>, <em class="sig-param">false_values=None</em>, <em class="sig-param">skipinitialspace=False</em>, <em class="sig-param">skiprows=None</em>, <em class="sig-param">skipfooter=0</em>, <em class="sig-param">nrows=None</em>, <em class="sig-param">na_values=None</em>, <em class="sig-param">keep_default_na=True</em>, <em class="sig-param">na_filter=True</em>, <em class="sig-param">verbose=False</em>, <em class="sig-param">skip_blank_lines=True</em>, <em class="sig-param">parse_dates=False</em>, <em class="sig-param">infer_datetime_format=False</em>, <em class="sig-param">keep_date_col=False</em>, <em class="sig-param">date_parser=None</em>, <em class="sig-param">dayfirst=False</em>, <em class="sig-param">cache_dates=True</em>, <em class="sig-param">iterator=False</em>, <em class="sig-param">chunksize=None</em>, <em class="sig-param">compression='infer'</em>, <em class="sig-param">thousands=None</em>, <em class="sig-param">decimal: str = '.'</em>, <em class="sig-param">lineterminator=None</em>, <em class="sig-param">quotechar='&quot;'</em>, <em class="sig-param">quoting=0</em>, <em class="sig-param">doublequote=True</em>, <em class="sig-param">escapechar=None</em>, <em class="sig-param">comment=None</em>, <em class="sig-param">encoding=None</em>, <em class="sig-param">dialect=None</em>, <em class="sig-param">error_bad_lines=True</em>, <em class="sig-param">warn_bad_lines=True</em>, <em class="sig-param">delim_whitespace=False</em>, <em class="sig-param">low_memory=True</em>, <em class="sig-param">memory_map=False</em>, <em class="sig-param">float_precision=None</em>, <em class="sig-param">storage_options: Optional[Dict[str</em>, <em class="sig-param">Any]] = None</em><span class="sig-paren">)</span> &#x2192; Union[pandas.io.parsers.TextFileReader, pandas.core.series.Series, pandas.core.frame.DataFrame, None, Dict[str, Optional[Union[pandas.io.parsers.TextFileReader, pandas.core.series.Series, pandas.core.frame.DataFrame]]]]<a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvTemplate.csv_to_df"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvTemplate.csv_to_df" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>从yaml配置中读取csv文件，转换为 <code class="docutils literal notranslate"><span class="pre">pandas</span></code> 的 <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html#pandas.read_csv">csv_to_df的参数详情</a> ，
+请访问 <a class="reference external" href="https://pandas.pydata.org/">pandas官网</a> ，了解更多信息</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul>
+<li><p>多个csv文件，返回一个 <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> 的字典</p>
+<blockquote>
+<div><ul class="simple">
+<li><p>key为文件名</p></li>
+<li><p>value为 <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p></li>
+</ul>
+</div></blockquote>
+</li>
+<li><p>一个csv文件，返回一个 <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.csv_template.CsvTemplate.df_to_csv">
+<code class="sig-name descname">df_to_csv</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data_dict</span><span class="p">:</span> <span class="n">Dict<span class="p">[</span>str<span class="p">, </span>pandas.core.frame.DataFrame<span class="p">]</span></span></em>, <em class="sig-param"><span class="n">sep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">','</span></em>, <em class="sig-param"><span class="n">na_rep</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">''</span></em>, <em class="sig-param"><span class="n">float_format</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">columns</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Sequence<span class="p">[</span>Optional<span class="p">[</span>Hashable<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">header</span><span class="p">:</span> <span class="n">Union<span class="p">[</span>bool<span class="p">, </span>List<span class="p">[</span>str<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">index_label</span><span class="p">:</span> <span class="n">Union[Hashable, None, Sequence[Optional[Hashable]]]</span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">mode</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'w'</span></em>, <em class="sig-param"><span class="n">encoding</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">compression</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Union<span class="p">[</span>str<span class="p">, </span>Dict<span class="p">[</span>str<span class="p">, </span>Any<span class="p">]</span><span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">'infer'</span></em>, <em class="sig-param"><span class="n">quoting</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">quotechar</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'&quot;'</span></em>, <em class="sig-param"><span class="n">line_terminator</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">chunksize</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">date_format</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">doublequote</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">True</span></em>, <em class="sig-param"><span class="n">escapechar</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>str<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em>, <em class="sig-param"><span class="n">decimal</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'.'</span></em>, <em class="sig-param"><span class="n">errors</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'strict'</span></em>, <em class="sig-param"><span class="n">storage_options</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>Dict<span class="p">[</span>str<span class="p">, </span>Any<span class="p">]</span><span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/csv_template.html#CsvTemplate.df_to_csv"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.csv_template.CsvTemplate.df_to_csv" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>将一个或多个 <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> 转换成csv文件，输出到指定文件夹</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html?highlight=to_csv#pandas.DataFrame.to_csv">df_to_csv的参数详情</a> ，
+请访问 <a class="reference external" href="https://pandas.pydata.org/">pandas官网</a> ，了解更多信息</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>data_dict</strong> – 由 <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code> 组成的字典，key为输出的文件名，value为 <code class="docutils literal notranslate"><span class="pre">DataFrame</span></code></p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-wordmarker.templates.pdbc_template">
+<span id="wordmarker-templates-pdbc-template-module"></span><h2>wordmarker.templates.pdbc_template module<a class="headerlink" href="#module-wordmarker.templates.pdbc_template" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="wordmarker.templates.pdbc_template.PdbcHelper">
+<em class="property">class </em><code class="sig-name descname">PdbcHelper</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcHelper"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcHelper" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>通过读取配置文件获取数据库的信息，进而建立连接
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcHelper.engine">
+<em class="property">property </em><code class="sig-name descname">engine</code><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcHelper.engine" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取引擎对象</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>引擎对象engine</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcHelper.engine_dict">
+<em class="property">property </em><code class="sig-name descname">engine_dict</code><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcHelper.engine_dict" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取引擎对象中设置的值</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>引擎对象中设置的值</p></li>
+<li><p>key为属性</p></li>
+<li><p>value为对应的值</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcHelper.set_engine">
+<code class="sig-name descname">set_engine</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcHelper.set_engine"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcHelper.set_engine" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>设置引擎</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>你可以在调用PdbcTemplate内的方法之前，设置引擎需要的其他参数（不包括配置文件内的参数）</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>kwargs</strong> – 除去配置文件中其他的值，采用key=value的形式</p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>engine对象</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wordmarker.templates.pdbc_template.PdbcOperations">
+<em class="property">class </em><code class="sig-name descname">PdbcOperations</code><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcOperations"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcOperations" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">数据库的相关操作的抽象类</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcOperations.execute">
+<em class="property">abstract </em><code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sql</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcOperations.execute"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcOperations.execute" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>执行sql语句，建议sql类型为DDL（数据定义语言）时候使用</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>sql</strong> – sql语句</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcOperations.query">
+<em class="property">abstract </em><code class="sig-name descname">query</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sql</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcOperations.query"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcOperations.query" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>查询数据库</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>sql</strong> – sql语句</p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>查询结果</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcOperations.update">
+<em class="property">abstract </em><code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sql</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcOperations.update"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcOperations.update" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>更新数据库</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>sql</strong> – sql语句</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wordmarker.templates.pdbc_template.PdbcTemplate">
+<em class="property">class </em><code class="sig-name descname">PdbcTemplate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcTemplate"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcTemplate" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#wordmarker.templates.pdbc_template.PdbcOperations" title="wordmarker.templates.pdbc_template.PdbcOperations"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.templates.pdbc_template.PdbcOperations</span></code></a>, <a class="reference internal" href="#wordmarker.templates.pdbc_template.PdbcHelper" title="wordmarker.templates.pdbc_template.PdbcHelper"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.templates.pdbc_template.PdbcHelper</span></code></a>, <a class="reference internal" href="wordmarker.data.html#wordmarker.data.formatter.SqlFormatter" title="wordmarker.data.formatter.SqlFormatter"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.data.formatter.SqlFormatter</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">操作数据库的模板</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcTemplate.execute">
+<code class="sig-name descname">execute</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sql</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcTemplate.execute"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcTemplate.execute" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>使用sqlalchemy中的方法执行sql，建议sql类型为DDL（数据定义语言）时候使用</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p>如果sql为 <code class="docutils literal notranslate"><span class="pre">select</span></code>，建议使用query方法</p>
+<p>如果sql为 <code class="docutils literal notranslate"><span class="pre">update</span></code> ，<code class="docutils literal notranslate"><span class="pre">delete</span></code> ，<code class="docutils literal notranslate"><span class="pre">insert</span></code> ，建议使用update方法</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>sql</strong> – sql语句</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcTemplate.query">
+<code class="sig-name descname">query</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sql</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>pandas.core.frame.DataFrame<span class="p">, </span>Iterator<span class="p">[</span>pandas.core.frame.DataFrame<span class="p">]</span><span class="p">]</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcTemplate.query"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcTemplate.query" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>查询数据库</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sql</strong> – sql语句</p></li>
+<li><p><strong>args</strong> – 问号对应的值</p></li>
+</ul>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>查询的数据</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcTemplate.query_table">
+<code class="sig-name descname">query_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">table_name</span></em>, <em class="sig-param"><span class="n">schema</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">index_col</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">coerce_float</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">parse_dates</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">columns</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">chunksize</span><span class="p">:</span> <span class="n">Optional<span class="p">[</span>int<span class="p">]</span></span> <span class="o">=</span> <span class="default_value">None</span></em><span class="sig-paren">)</span> &#x2192; Union<span class="p">[</span>pandas.core.frame.DataFrame<span class="p">, </span>Iterator<span class="p">[</span>pandas.core.frame.DataFrame<span class="p">]</span><span class="p">]</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcTemplate.query_table"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcTemplate.query_table" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">pandas.read_sql_table</span></code> 方法，读取整张表的数据</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.read_sql_table.html#pandas.read_sql_table">query_table的参数详情</a> ，
+请访问 <a class="reference external" href="https://pandas.pydata.org/">pandas官网</a> ，了解更多信息</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>查询的数据</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcTemplate.update">
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sql</span></em>, <em class="sig-param"><span class="o">*</span><span class="n">args</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcTemplate.update"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcTemplate.update" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>更新数据库</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>sql</strong> – sql语句</p></li>
+<li><p><strong>args</strong> – 问号对应的值</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.pdbc_template.PdbcTemplate.update_table">
+<code class="sig-name descname">update_table</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span><span class="p">:</span> <span class="n">pandas.core.frame.DataFrame</span></em>, <em class="sig-param"><span class="n">name</span><span class="p">:</span> <span class="n">str</span></em>, <em class="sig-param"><span class="n">schema</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">if_exists</span><span class="p">:</span> <span class="n">str</span> <span class="o">=</span> <span class="default_value">'replace'</span></em>, <em class="sig-param"><span class="n">index</span><span class="p">:</span> <span class="n">bool</span> <span class="o">=</span> <span class="default_value">False</span></em>, <em class="sig-param"><span class="n">index_label</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">chunksize</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">dtype</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">method</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/pdbc_template.html#PdbcTemplate.update_table"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.pdbc_template.PdbcTemplate.update_table" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>使用 <code class="docutils literal notranslate"><span class="pre">pandas.to_sql</span></code> 方法，将数据写入数据库中的一张表中</p>
+</div>
+<div class="admonition tip">
+<p class="admonition-title">小技巧</p>
+<p><a class="reference external" href="https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_sql.html#pandas.DataFrame.to_sql">update_table的参数详情</a> ，
+请访问 <a class="reference external" href="https://pandas.pydata.org/">pandas官网</a> ，了解更多信息</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>data</strong> – 数据框</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-wordmarker.templates.word_template">
+<span id="wordmarker-templates-word-template-module"></span><h2>wordmarker.templates.word_template module<a class="headerlink" href="#module-wordmarker.templates.word_template" title="永久链接至标题">¶</a></h2>
+<dl class="py class">
+<dt id="wordmarker.templates.word_template.DocxHelper">
+<em class="property">class </em><code class="sig-name descname">DocxHelper</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#DocxHelper"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.DocxHelper" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="wordmarker.loaders.html#wordmarker.loaders.default_resource_loader.DefaultResourceLoader" title="wordmarker.loaders.default_resource_loader.DefaultResourceLoader"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.loaders.default_resource_loader.DefaultResourceLoader</span></code></a>, <a class="reference internal" href="wordmarker.data.html#wordmarker.data.formatter.DocxFormatter" title="wordmarker.data.formatter.DocxFormatter"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.data.formatter.DocxFormatter</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>通过读取配置文件，获取docx文件模板的相关信息
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.templates.word_template.DocxHelper.docx_in_path">
+<em class="property">property </em><code class="sig-name descname">docx_in_path</code><a class="headerlink" href="#wordmarker.templates.word_template.DocxHelper.docx_in_path" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>通过读取yaml文件的 <code class="docutils literal notranslate"><span class="pre">data.docx.input.path</span></code> 属性，获取输入的docx文件或目录的绝对路径</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>docx文件或目录的绝对路径</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.word_template.DocxHelper.docx_out_path">
+<em class="property">property </em><code class="sig-name descname">docx_out_path</code><a class="headerlink" href="#wordmarker.templates.word_template.DocxHelper.docx_out_path" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>通过读取yaml文件的 <code class="docutils literal notranslate"><span class="pre">data.docx.output.dir</span></code> 属性，获取输出的docx目录的绝对路径</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>docx目录的绝对路径</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.word_template.DocxHelper.get_docx">
+<code class="sig-name descname">get_docx</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#DocxHelper.get_docx"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.DocxHelper.get_docx" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取docx文件的绝对路径，如果是doc文件，则转换为docx文件放在原doc文件的目录下</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>yaml文件中 <code class="docutils literal notranslate"><span class="pre">data.docx.input.path</span></code> 是目录，再返回当前目录下docx文件的绝对路径</p></li>
+<li><p>yaml文件中 <code class="docutils literal notranslate"><span class="pre">data.docx.input.path</span></code> 是文件，返回docx文件的绝对路径</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.word_template.DocxHelper.get_docx_file_name">
+<code class="sig-name descname">get_docx_file_name</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#DocxHelper.get_docx_file_name"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.DocxHelper.get_docx_file_name" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>获取docx文件的文件名</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>是docx文件，返回文件的名字</p></li>
+<li><p>是目录，返回当前目录下的所有docx文件的文件名</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wordmarker.templates.word_template.DocxOperations">
+<em class="property">class </em><code class="sig-name descname">DocxOperations</code><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#DocxOperations"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.DocxOperations" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">docx文件的相关操作的抽象类</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py class">
+<dt id="wordmarker.templates.word_template.ImgHelper">
+<em class="property">class </em><code class="sig-name descname">ImgHelper</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#ImgHelper"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.ImgHelper" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="wordmarker.contexts.html#wordmarker.contexts.system_context.SystemContext" title="wordmarker.contexts.system_context.SystemContext"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.contexts.system_context.SystemContext</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>通过读取配置文件，获取img文件的相关信息
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.templates.word_template.ImgHelper.get_img_file">
+<code class="sig-name descname">get_img_file</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">img_name</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#ImgHelper.get_img_file"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.ImgHelper.get_img_file" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>根据图片的名字，获取图片的绝对路径</p>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">警告</p>
+<p>必须先将图片输出到输出目录下，才能获取到</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">参数</dt>
+<dd class="field-odd"><p><strong>img_name</strong> – 图片的名字</p>
+</dd>
+<dt class="field-even">返回</dt>
+<dd class="field-even"><p><ul class="simple">
+<li><p>图片的绝对路径</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.word_template.ImgHelper.img_out_path">
+<em class="property">property </em><code class="sig-name descname">img_out_path</code><a class="headerlink" href="#wordmarker.templates.word_template.ImgHelper.img_out_path" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>通过读取yaml文件的 <code class="docutils literal notranslate"><span class="pre">data.img.output.dir</span></code> 属性，获取输出的img目录的绝对路径</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>img目录的绝对路径</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt id="wordmarker.templates.word_template.WordTemplate">
+<em class="property">class </em><code class="sig-name descname">WordTemplate</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#WordTemplate"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.WordTemplate" title="永久链接至目标">¶</a></dt>
+<dd><p>基类：<a class="reference internal" href="#wordmarker.templates.word_template.DocxHelper" title="wordmarker.templates.word_template.DocxHelper"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.templates.word_template.DocxHelper</span></code></a>, <a class="reference internal" href="wordmarker.creatives.html#wordmarker.creatives.builder.AbstractBuilder" title="wordmarker.creatives.builder.AbstractBuilder"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.creatives.builder.AbstractBuilder</span></code></a>, <a class="reference internal" href="#wordmarker.templates.word_template.ImgHelper" title="wordmarker.templates.word_template.ImgHelper"><code class="xref py py-class docutils literal notranslate"><span class="pre">wordmarker.templates.word_template.ImgHelper</span></code></a></p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">操作docx文件的模板</span>
+</pre></div>
+</div>
+<dl class="py method">
+<dt id="wordmarker.templates.word_template.WordTemplate.append">
+<code class="sig-name descname">append</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">*</span><span class="n">args</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">kwargs</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#WordTemplate.append"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.WordTemplate.append" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>添加对象的部件</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>当前builder对象</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.word_template.WordTemplate.append_img">
+<code class="sig-name descname">append_img</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#WordTemplate.append_img"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.WordTemplate.append_img" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.word_template.WordTemplate.append_text">
+<code class="sig-name descname">append_text</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#WordTemplate.append_text"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.WordTemplate.append_text" title="永久链接至目标">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt id="wordmarker.templates.word_template.WordTemplate.build">
+<code class="sig-name descname">build</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/wordmarker/templates/word_template.html#WordTemplate.build"><span class="viewcode-link">[源代码]</span></a><a class="headerlink" href="#wordmarker.templates.word_template.WordTemplate.build" title="永久链接至目标">¶</a></dt>
+<dd><div class="admonition note">
+<p class="admonition-title">注解</p>
+<p>构建复杂对象的实例</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">返回</dt>
+<dd class="field-odd"><p><ul class="simple">
+<li><p>复杂对象的实例</p></li>
+</ul>
+</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="wordmarker.utils.html" class="btn btn-neutral float-right" title="wordmarker.utils package" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="wordmarker.loaders.html" class="btn btn-neutral float-left" title="wordmarker.loaders package" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2021, chensixiang
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
