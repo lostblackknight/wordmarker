@@ -37,7 +37,7 @@ class MyTestCase(unittest.TestCase):
         print(yaml.get_value('username'))
 
     def test6(self):
-        path = "E:\PycharmProjects\wordmarker\config"
+        path = "E:\PycharmProjects\wordmarker\config.yaml"
         context = WordMarkerContext(path)
         yaml_context = context.yaml_context
         print(yaml_context.get_yaml())
