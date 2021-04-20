@@ -4,7 +4,7 @@
 #
 # 详细信息请查看 https://docs.sqlalchemy.org/en/14/core/engines.html
 # url:
-#    postgresql: "postgresql://username:passwrod@localhost:5432/database"
+#    postgresql: "postgresql://username:password@localhost:5432/database"
 #    mysql: mysql+pymysql://username:password@localhost:3306/database
 # echo: 是否开启日志
 # encoding: 编码，默认utf-8
@@ -15,9 +15,9 @@
 # echo_pool: 是否开启日志
 pdbc:
   engine:
-    url: "postgresql://postgres:123456@localhost:5432/report"
+    url: postgresql://postgres:123456@localhost:5432/report
     echo: false
-    encoding: "utf-8"
+    encoding: utf-8
     pool_size: 5
     max_overflow: 10
     pool_recycle: -1
@@ -37,16 +37,16 @@ pdbc:
 data:
   csv:
     input:
-      path: "data/in"
+      path: data/in
     output:
-      dir: "data/out"
+      dir: data/out
   docx:
     input:
-      path: "template/in"
+      path: template/in
     output:
-      dir: "template/out"
+      dir: template/out
   img:
     output:
-      dir: "img"
+      dir: img
 
 # ======================================================================================================
