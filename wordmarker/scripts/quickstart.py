@@ -128,7 +128,7 @@ def generate_yaml(url, flag):
 
 
 @click.command()
-def cli():
+def main():
     click.echo()
     click.echo("欢迎使用 WordMarker 的脚手架，请按照提示完成项目的构建。")
     url = database()
@@ -255,4 +255,4 @@ def end():
 
 
 if __name__ == '__main__':
-    cli()
+    main()
