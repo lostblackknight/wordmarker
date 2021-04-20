@@ -218,3 +218,8 @@ cython_debug/
 # 忽略doc/docx文件
 *.doc
 *.docx
+
+# 其他
+data
+img
+template
