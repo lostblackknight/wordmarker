@@ -222,6 +222,6 @@ cython_debug/
 # 其他
 data/in
 data/out
-img
+img/
 template/in
 template/out
