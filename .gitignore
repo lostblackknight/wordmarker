@@ -225,3 +225,4 @@ data/out
 img/**
 template/in
 template/out
+main.py
