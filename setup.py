@@ -3,14 +3,16 @@ from setuptools import setup, find_packages
 setup(
     name='wordmarker',
     version='0.0.1',
-    url='',
-    download_url='',
     author='chensixiang',
     author_email='chensixiang1234@gmail.com',
+    license_file='LICENSE',
+    license='MIT',
+    download_url='https://pypi.org/project/wordmarker/',
     project_urls={
         "Code": "https://github.com/lostblackknight/wordmarker",
         "Issue tracker": "https://github.com/lostblackknight/wordmarker/issues",
     },
+    description='Word documentation generator',
     packages=find_packages(
         exclude=['tests', 'tests.contexts', 'tests.templates', 'tests.utils'],
     ),
@@ -33,6 +35,9 @@ setup(
         'click==7.1.2',
         'ruamel.yaml==0.16.12',
         'ruamel.yaml.clib==0.2.2',
+        'docutils>=0.13.1',
+        'Pygments>=2.5.1',
+        'bleach==3.3.0',
     ],
     entry_points={
         'console_scripts': [
