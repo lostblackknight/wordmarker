@@ -2,11 +2,12 @@ from setuptools import setup, find_packages
 
 setup(
     name='wordmarker',
-    version='0.0.1',
+    version='0.0.2',
     author='chensixiang',
     author_email='chensixiang1234@gmail.com',
     license_file='LICENSE',
     license='MIT',
+    url='https://wordmarker.readthedocs.io',
     download_url='https://pypi.org/project/wordmarker/',
     project_urls={
         "Code": "https://github.com/lostblackknight/wordmarker",
