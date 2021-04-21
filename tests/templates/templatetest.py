@@ -142,10 +142,7 @@ class MyTestCase(unittest.TestCase):
         print(PathUtils.filter_file(file_list, suffix_list))
 
     def test15(self):
-        d = DocxFormatter()
-        doc_path_list = ['E:\\PycharmProjects\\wordmarker\\template\\in\\2017年航指数半年白皮书—发布版（新）.doc',
-                         'E:\\PycharmProjects\\wordmarker\\template\\in\\2018年航指数半年白皮书—发布版（新）.doc']
-        d.format(doc_path_list, 'E:\\PycharmProjects\\wordmarker\\template\\out')
+        pass
 
     def test16(self):
         WordMarkerContext('E:\PycharmProjects\wordmarker\config.yaml')

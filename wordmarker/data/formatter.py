@@ -1,10 +1,4 @@
-import logging
-import os
 from abc import ABCMeta, abstractmethod
-from win32com.client import DispatchEx
-from win32com.client.gencache import EnsureDispatch
-from wordmarker.contexts import SystemContext
-from wordmarker.utils import log
 
 
 class Formatter(metaclass=ABCMeta):
