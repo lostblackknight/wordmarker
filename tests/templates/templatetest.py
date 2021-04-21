@@ -3,7 +3,6 @@ import unittest
 
 from wordmarker.contexts import YamlContext, WordMarkerContext
 from wordmarker.creatives import FactoryBean
-from wordmarker.data.formatter import DocxFormatter
 from wordmarker.templates.csv_template import CsvHelper, CsvTemplate
 from wordmarker.templates.word_template import DocxHelper, ImgHelper
 from wordmarker.templates.pdbc_template import PdbcHelper, PdbcTemplate
@@ -120,11 +119,10 @@ class MyTestCase(unittest.TestCase):
         pdbc_template.update_table(data_dict['景气指数_加盐.csv'], "t_prosperity_index")
 
     def test12(self):
-        WordMarkerContext('E:\PycharmProjects\wordmarker\config.yaml')
+        WordMarkerContext('E:\PycharmProjects\wordmarker-bake\config.yaml')
         helper = DocxHelper()
-        # print(helper.get_docx_in_path())
-        # print(helper.get_docx_out_path())
-        # print(helper.get_docx_file_name())
+        print(helper.docx_in_path)
+        print(helper.docx_out_path)
         print(helper.get_docx())
         print(helper.get_docx_file_name())
 

@@ -2,7 +2,6 @@ import os
 from abc import ABCMeta, abstractmethod
 from wordmarker.contexts import YamlContext, SystemContext
 from wordmarker.creatives import FactoryBean, AbstractBuilder
-from wordmarker.data import DocxFormatter
 from wordmarker.loaders import DefaultResourceLoader
 from wordmarker.utils import PathUtils
 
@@ -16,7 +15,7 @@ class DocxOperations(metaclass=ABCMeta):
     pass
 
 
-class DocxHelper(DefaultResourceLoader, DocxFormatter):
+class DocxHelper(DefaultResourceLoader):
     """
     ::
 
@@ -61,7 +60,7 @@ class DocxHelper(DefaultResourceLoader, DocxFormatter):
         """
         .. note::
 
-            获取docx文件的绝对路径，如果是doc文件，则转换为docx文件放在原doc文件的目录下
+            获取docx文件的绝对路径
 
         :return: - yaml文件中 ``data.docx.input.path`` 是目录，再返回当前目录下docx文件的绝对路径
 
@@ -70,28 +69,10 @@ class DocxHelper(DefaultResourceLoader, DocxFormatter):
         docx = self.get_resource(self._docx_in_path).get_file()
         if not self.get_resource(self._docx_in_path).is_file():
             # 是目录
-            docx = PathUtils.filter_file(docx, ['.doc', '.docx'])
-            doc = PathUtils.filter_file(docx, ['.doc'])
-            if len(doc) > 0:
-                self.format(doc, self._docx_in_path)
-                docx = PathUtils.filter_file(self.get_resource(self._docx_in_path).get_file(), ['.docx'])
-            else:
-                return docx
+            docx = PathUtils.filter_file(docx, ['.docx'])
         else:
             # 是文件
-            docx = PathUtils.filter_file(docx, ['.doc', '.docx'])
-            if len(docx) == 0:
-                return None
-            else:
-                doc = PathUtils.filter_file(docx[0], ['.doc'])
-                if len(doc) > 0:
-                    self.format(doc, os.path.split(self._docx_in_path)[0])
-                    res = os.path.split(docx[0])
-                    directory = res[0]
-                    file_name = res[1]
-                    docx = directory + self.path_separator + os.path.splitext(file_name)[0] + '.docx'
-                else:
-                    docx = docx[0]
+            docx = PathUtils.filter_file(docx, ['.docx'])[0]
         self.__docx = docx
         return docx
 
