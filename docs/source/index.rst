@@ -41,3 +41,4 @@ API 文档
    wordmarker.data
    wordmarker.loaders
    wordmarker.templates
+   wordmarker.utils
