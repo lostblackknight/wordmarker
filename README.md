@@ -1,6 +1,6 @@
 # WordMarker
 
-![PyPI](https://img.shields.io/pypi/v/wordmarker)![Read the Docs](https://img.shields.io/readthedocs/wordmarker)![GitHub](https://img.shields.io/github/license/lostblackknight/wordmarker)
+![PyPI](https://img.shields.io/pypi/v/wordmarker) ![Read the Docs](https://img.shields.io/readthedocs/wordmarker)![GitHub](https://img.shields.io/github/license/lostblackknight/wordmarker) 
 
 Word文档生成器。
 
