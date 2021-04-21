@@ -1,11 +1,11 @@
 from setuptools import setup, find_packages
 
-with open('README.md') as f:
+with open('README.md', encoding='utf-8') as f:
     long_desc = f.read()
 
 setup(
     name='wordmarker',
-    version='0.0.2',
+    version='0.0.3',
     author='chensixiang',
     author_email='chensixiang1234@gmail.com',
     license_file='LICENSE',
@@ -18,6 +18,7 @@ setup(
     },
     description='Word documentation generator',
     long_description=long_desc,
+    long_description_content_type='text/markdown',
     packages=find_packages(
         exclude=['tests', 'tests.contexts', 'tests.templates', 'tests.utils'],
     ),
