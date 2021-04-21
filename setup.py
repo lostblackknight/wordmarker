@@ -1,5 +1,8 @@
 from setuptools import setup, find_packages
 
+with open('README.md') as f:
+    long_desc = f.read()
+
 setup(
     name='wordmarker',
     version='0.0.2',
@@ -14,6 +17,7 @@ setup(
         "Issue tracker": "https://github.com/lostblackknight/wordmarker/issues",
     },
     description='Word documentation generator',
+    long_description=long_desc,
     packages=find_packages(
         exclude=['tests', 'tests.contexts', 'tests.templates', 'tests.utils'],
     ),
