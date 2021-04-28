@@ -4,7 +4,7 @@ import unittest
 from wordmarker.contexts import YamlContext, WordMarkerContext
 from wordmarker.creatives import FactoryBean
 from wordmarker.templates.csv_template import CsvHelper, CsvTemplate
-from wordmarker.templates.word_template import DocxHelper, ImgHelper
+from wordmarker.templates.word_template import DocxHelper, ImgHelper, TextHelper
 from wordmarker.templates.pdbc_template import PdbcHelper, PdbcTemplate
 import pandas as pd
 
@@ -152,6 +152,12 @@ class MyTestCase(unittest.TestCase):
         i = ImgHelper()
         print(i.img_out_path)
         print(i.get_img_file("aaa.png"))
+
+    def test17(self):
+        WordMarkerContext('E:\PycharmProjects\wordmarker-bake\config.yaml')
+        h = TextHelper()
+        print(h.text_in_path)
+        print(h.get_value("a.b.c"))
 
 
 if __name__ == '__main__':

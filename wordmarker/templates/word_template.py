@@ -173,6 +173,55 @@ class ImgHelper(SystemContext):
         return cls.__img_helper
 
 
+class TextHelper:
+    """
+    ::
+
+        通过读取配置文件，获取文本yaml文件的相关信息
+    """
+    __text_helper = None
+
+    def __init__(self):
+        super().__init__()
+        self.__yaml_context: YamlContext = FactoryBean().get_bean("yaml_context")
+        self.__text_in_path = self._get_text_in_path()
+
+    def _get_text_in_path(self):
+        prop = "data.text.input.path"
+        value = self.__yaml_context.get_value(prop)
+        return PathUtils(self.__yaml_context.path, value).get_relative_path()
+
+    @property
+    def text_in_path(self):
+        """
+        .. note::
+
+            通过读取yaml文件的 ``data.text.input.path`` 属性，获取输入的文本yaml文件的绝对路径
+
+        :return: - 文本yaml文件的绝对路径
+        """
+        return self.__text_in_path
+
+    def get_value(self, prop):
+        """
+        .. note::
+
+            从yaml字典中，根据属性获取对应的值
+
+            加载多个yaml文件，排在后面的文件里的值，会覆盖前面的文件里的值
+
+        :param prop: 属性，用 ``.`` 分隔，例如，``pdbc.engine.url``
+        :return: - yaml字典中对应的值
+        """
+        text_content = YamlContext(self.text_in_path)
+        return text_content.get_value(prop)
+
+    def __new__(cls, *args, **kwargs):
+        if cls.__text_helper is None:
+            cls.__text_helper = object.__new__(cls)
+        return cls.__text_helper
+
+
 class WordTemplate(DocxHelper, AbstractBuilder, ImgHelper):
     """
     ::

@@ -17,3 +17,11 @@ ruamel.yaml.clib==0.2.2
 docutils>=0.13.1
 Pygments>=2.5.1
 bleach==3.3.0
+docxtpl
+jinja2
+libiconv
+libxml2
+libxslt
+lxml
+markupsafe
+python-docx
