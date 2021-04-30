@@ -42,7 +42,7 @@ data:
       dir: data/out
   docx:
     input:
-      path: template/in
+      path: template/in/default_tpl.docx
     output:
       dir: template/out
   img:

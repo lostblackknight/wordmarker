@@ -11,8 +11,6 @@ class YamlContext(Context, YamlResourceLoader):
         yaml文件的上下文
     """
 
-    __yaml_context = None
-
     def __init__(self, path):
         super().__init__()
         self.__path = path
@@ -86,8 +84,3 @@ class YamlContext(Context, YamlResourceLoader):
     @path.setter
     def path(self, path):
         self.__path = path
-
-    def __new__(cls, *args, **kwargs):
-        if cls.__yaml_context is None:
-            cls.__yaml_context = object.__new__(cls)
-        return cls.__yaml_context

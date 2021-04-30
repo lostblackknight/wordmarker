@@ -56,6 +56,9 @@ data:
   img:
     output:
       dir: img
+  text:
+    input:
+      path: text
 
 # ======================================================================================================
 """
@@ -111,6 +114,9 @@ data:
   img:
     output:
       dir: ''
+  text:
+    input:
+      path: ''
 
 # ======================================================================================================
 """
@@ -228,6 +234,8 @@ def input_output():
             shutil.rmtree(current_dir + path_separator + "template")
         if os.path.exists(current_dir + path_separator + "img"):
             shutil.rmtree(current_dir + path_separator + "img")
+        if os.path.exists(current_dir + path_separator + "text"):
+            shutil.rmtree(current_dir + path_separator + "text")
         os.makedirs(current_dir + path_separator + "data" + path_separator + "in")
         click.echo("成功创建data/in目录")
         os.makedirs(current_dir + path_separator + "data" + path_separator + "out")
@@ -238,6 +246,8 @@ def input_output():
         click.echo("成功创建template/out目录")
         os.makedirs(current_dir + path_separator + "img")
         click.echo("成功创建img目录")
+        os.makedirs(current_dir + path_separator + "text")
+        click.echo("成功创建text目录")
         return True
     else:
         current_dir = os.path.abspath(os.curdir)
@@ -247,6 +257,8 @@ def input_output():
             shutil.rmtree(current_dir + path_separator + "template")
         if os.path.exists(current_dir + path_separator + "img"):
             shutil.rmtree(current_dir + path_separator + "img")
+        if os.path.exists(current_dir + path_separator + "text"):
+            shutil.rmtree(current_dir + path_separator + "text")
         return False
 
 

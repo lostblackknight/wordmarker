@@ -1,18 +1,11 @@
+import logging
 import os
-from abc import ABCMeta, abstractmethod
+import shutil
+from docxtpl import DocxTemplate, R
 from wordmarker.contexts import YamlContext, SystemContext
 from wordmarker.creatives import FactoryBean, AbstractBuilder
 from wordmarker.loaders import DefaultResourceLoader
-from wordmarker.utils import PathUtils
-
-
-class DocxOperations(metaclass=ABCMeta):
-    """
-    ::
-
-        docx文件的相关操作的抽象类
-    """
-    pass
+from wordmarker.utils import PathUtils, log
 
 
 class DocxHelper(DefaultResourceLoader):
@@ -25,10 +18,10 @@ class DocxHelper(DefaultResourceLoader):
 
     def __init__(self):
         super().__init__()
-        self.__docx = None
         self.__yaml_context: YamlContext = FactoryBean().get_bean("yaml_context")
         self._docx_in_path = self._get_docx_in_path()
         self._docx_out_path = self._get_docx_out_path()
+        self._docx = self._get_docx()
 
     def _get_docx_in_path(self):
         """
@@ -56,13 +49,13 @@ class DocxHelper(DefaultResourceLoader):
         value = self.__yaml_context.get_value(prop)
         return PathUtils(self.__yaml_context.path, value).get_relative_path()
 
-    def get_docx(self):
+    def _get_docx(self):
         """
         .. note::
 
             获取docx文件的绝对路径
 
-        :return: - yaml文件中 ``data.docx.input.path`` 是目录，再返回当前目录下docx文件的绝对路径
+        :return: - yaml文件中 ``data.docx.input.path`` 是目录，返回当前目录下docx文件的绝对路径
 
                  - yaml文件中 ``data.docx.input.path`` 是文件，返回docx文件的绝对路径
         """
@@ -73,7 +66,6 @@ class DocxHelper(DefaultResourceLoader):
         else:
             # 是文件
             docx = PathUtils.filter_file(docx, ['.docx'])[0]
-        self.__docx = docx
         return docx
 
     def get_docx_file_name(self):
@@ -83,9 +75,10 @@ class DocxHelper(DefaultResourceLoader):
             获取docx文件的文件名
 
         :return: - 是docx文件，返回文件的名字
+
                  - 是目录，返回当前目录下的所有docx文件的文件名
         """
-        docx = self.__docx
+        docx = self._docx
         if type(docx) is list:
             temp_list = []
             for item in docx:
@@ -115,6 +108,19 @@ class DocxHelper(DefaultResourceLoader):
         :return: - docx目录的绝对路径
         """
         return self._docx_out_path
+
+    @property
+    def docx(self):
+        """
+        .. note::
+
+            获取docx文件的绝对路径
+
+        :return: - yaml文件中 ``data.docx.input.path`` 是目录，返回当前目录下docx文件的绝对路径
+
+                 - yaml文件中 ``data.docx.input.path`` 是文件，返回docx文件的绝对路径
+        """
+        return self._docx
 
     def __new__(cls, *args, **kwargs):
         if cls.__docx_helper is None:
@@ -166,6 +172,11 @@ class ImgHelper(SystemContext):
         :return: - img目录的绝对路径
         """
         return self.__img_out_path
+
+    def clear_img(self):
+        if os.path.exists(self.__img_out_path):
+            shutil.rmtree(self.__img_out_path)
+            os.mkdir(self.__img_out_path)
 
     def __new__(cls, *args, **kwargs):
         if cls.__img_helper is None:
@@ -222,24 +233,79 @@ class TextHelper:
         return cls.__text_helper
 
 
-class WordTemplate(DocxHelper, AbstractBuilder, ImgHelper):
+class WordTemplate(AbstractBuilder, TextHelper, ImgHelper, DocxHelper):
     """
     ::
 
         操作docx文件的模板
     """
 
-    def __init__(self):
+    @log
+    def __init__(self, tpl_name=None):
         super().__init__()
+        self.content = {'page_break': R('\f')}
+        self.__tpl_name = tpl_name
+        self.__tpl = DocxTemplate(self.__get_tpl_name_abs())
 
-    def append(self, *args, **kwargs):
-        pass
+    def __get_tpl_name_abs(self):
+        if type(self._get_docx()) is list:
+            if self.__tpl_name is None:
+                self._logger: logging.Logger
+                self._logger.error("请输入模板的文件名")
+            else:
+                for i in self.get_docx_file_name():
+                    if self.__tpl_name == i:
+                        for j in self._get_docx():
+                            if self.__tpl_name == os.path.split(j)[1]:
+                                return j
+                    else:
+                        self._logger.error("模板的文件名不正确")
+                        break
+        else:
+            return self._docx
 
-    def build(self):
-        pass
+    def append(self, content):
+        """
+        .. note::
 
-    def append_img(self):
-        pass
+            添加其他的content到全局的content中
 
-    def append_text(self):
-        pass
+        :param content: 其他的content，类型是 ``dict``
+        :return: - self
+        """
+        self.content.update(content)
+        return self
+
+    def build(self, file_name=None):
+        """
+        .. note::
+
+            创建docx文件
+
+        :param file_name: docx文件的文件名
+        """
+        if file_name:
+            self.__tpl.render(self.content)
+            path = self.docx_out_path + self.path_separator + os.path.splitext(file_name)[0]
+            if os.path.exists(path):
+                shutil.rmtree(path)
+            os.mkdir(path)
+            img_path = path + self.path_separator + 'img'
+            if os.path.exists(img_path):
+                shutil.rmtree(img_path)
+            shutil.copytree(self.img_out_path, img_path)
+            self.__tpl.save(path + self.path_separator + file_name)
+        else:
+            self._logger: logging.Logger
+            self._logger.error('请输入输出的docx文件的文件名')
+
+    @property
+    def tpl(self):
+        """
+        .. note::
+
+            获取 ``DocxTemplate`` 对象
+
+        :return: - ``DocxTemplate`` 对象
+        """
+        return self.__tpl
