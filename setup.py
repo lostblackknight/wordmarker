@@ -43,6 +43,11 @@ setup(
         'docutils>=0.13.1',
         'Pygments>=2.5.1',
         'bleach==3.3.0',
+        'docxtpl==0.11.4',
+        'Jinja2==2.11.3',
+        'lxml==4.6.3',
+        'MarkupSafe==1.1.1',
+        'python-docx==0.8.10',
     ],
     entry_points={
         'console_scripts': [
