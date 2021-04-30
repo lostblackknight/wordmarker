@@ -5,7 +5,7 @@ with open('README.md', encoding='utf-8') as f:
 
 setup(
     name='wordmarker',
-    version='0.0.3',
+    version='0.0.4',
     author='chensixiang',
     author_email='chensixiang1234@gmail.com',
     license_file='LICENSE',
