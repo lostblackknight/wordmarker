@@ -174,6 +174,12 @@ class ImgHelper(SystemContext):
         return self.__img_out_path
 
     def clear_img(self):
+        """
+        .. note::
+
+            清除 ``data.img.output.dir`` 属性对应的img的输出目录下的所有文件和目录
+
+        """
         if os.path.exists(self.__img_out_path):
             shutil.rmtree(self.__img_out_path)
             os.mkdir(self.__img_out_path)
@@ -304,7 +310,11 @@ class WordTemplate(AbstractBuilder, TextHelper, ImgHelper, DocxHelper):
         """
         .. note::
 
-            获取 ``DocxTemplate`` 对象
+            获取 ``DocxTemplate`` 对象，
+
+        .. tip::
+
+            ``DocxTemplate`` 对象的详细信息，请访问 `python-docx-template的文档 <https://docxtpl.readthedocs.io/>`_
 
         :return: - ``DocxTemplate`` 对象
         """
