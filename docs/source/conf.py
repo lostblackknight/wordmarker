@@ -21,7 +21,7 @@ for x in os.walk('../../wordmarker'):
 project = 'WordMarker'
 copyright = '2021, chensixiang'
 author = 'chensixiang'
-version = '0.0.4'
+version = '0.0.5'
 
 # -- General configuration ---------------------------------------------------
 

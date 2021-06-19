@@ -202,6 +202,8 @@ class TextHelper:
         super().__init__()
         self.__yaml_context: YamlContext = FactoryBean().get_bean("yaml_context")
         self.__text_in_path = self._get_text_in_path()
+        self.__text_context = YamlContext(self.text_in_path)
+        self.__yaml_singleton = {}
 
     def _get_text_in_path(self):
         prop = "data.text.input.path"
@@ -230,8 +232,49 @@ class TextHelper:
         :param prop: 属性，用 ``.`` 分隔，例如，``pdbc.engine.url``
         :return: - yaml字典中对应的值
         """
-        text_content = YamlContext(self.text_in_path)
-        return text_content.get_value(prop)
+        return self.__text_context.get_value(prop)
+
+    def get_yaml(self) -> dict:
+        """
+        .. note::
+
+            获取从yaml文件中读取的数据，类型为dict
+
+        :return: - path为文件，返回一个字典，内容为yaml文件的内容
+
+                 - path为目录，返回一个嵌套的字典
+
+                    - key为yaml文件的绝对路径
+
+                    - value为yaml文件的内容，是一个字典
+        """
+        return self.__text_context.get_yaml()
+
+    def get_yaml_singleton(self):
+        """
+        .. note::
+
+            获取从 ``data.text.input.path`` 属性中对应的路径下所有yaml文件中的数据，类型为dict
+
+            加载多个yaml文件，排在后面的文件里的值，会覆盖前面的文件里的值
+
+        :return: - 返回一个字典，内容为所有yaml文件的内容
+        """
+        for i in self.get_yaml().values():
+            self.__yaml_singleton.update(i)
+        return self.__yaml_singleton
+
+    def get_yaml_singleton_str(self):
+        """
+        .. note::
+
+            获取从 ``data.text.input.path`` 属性中对应的路径下所有yaml文件中的数据，类型为str，内容为一个字典
+
+            加载多个yaml文件，排在后面的文件里的值，会覆盖前面的文件里的值
+
+        :return: - 返回一个字符串，内容为一个字典，内容为所有yaml文件的内容
+        """
+        return str(self.get_yaml_singleton())
 
     def __new__(cls, *args, **kwargs):
         if cls.__text_helper is None:

@@ -157,10 +157,13 @@ class MyTestCase(unittest.TestCase):
         print(i.get_img_file("aaa.png"))
 
     def test17(self):
-        WordMarkerContext('E:\PycharmProjects\wordmarker-bake\config.yaml')
+        WordMarkerContext('E:\PycharmProjects\wordmarker\config.yaml')
         h = TextHelper()
         print(h.text_in_path)
-        print(h.get_value("a.b.c"))
+        # print(h.get_value("name"))
+        print(h.get_yaml())
+        print(h.get_yaml_singleton())
+        print(h.get_yaml_singleton_str())
 
     def test18(self):
         WordMarkerContext('E:\PycharmProjects\wordmarker-bake\config.yaml')
