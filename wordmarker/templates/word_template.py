@@ -1,11 +1,17 @@
+import ast
+import copy
 import logging
 import os
 import shutil
+from abc import ABCMeta
+
 from docxtpl import DocxTemplate, R
+from jinja2 import Environment, meta, Template
+
 from wordmarker.contexts import YamlContext, SystemContext
 from wordmarker.creatives import FactoryBean, AbstractBuilder
 from wordmarker.loaders import DefaultResourceLoader
-from wordmarker.utils import PathUtils, log
+from wordmarker.utils import PathUtils, log, YamlUtils
 
 
 class DocxHelper(DefaultResourceLoader):
@@ -362,3 +368,66 @@ class WordTemplate(AbstractBuilder, TextHelper, ImgHelper, DocxHelper):
         :return: - ``DocxTemplate`` 对象
         """
         return self.__tpl
+
+
+class AbstractConverter(metaclass=ABCMeta):
+    """
+    ::
+
+        此类是用来实现的，可以将yaml模板中的插值进行转换
+
+        定义的方法可以为@staticmethod修饰的方法，不能有任何参数，也可以为由self一个参数构成的方法
+
+    """
+    __yaml_dict: dict = {}
+
+    def __init__(self, word_tpl: WordTemplate):
+        self.word_tpl = word_tpl
+
+    def convert_to_str(self) -> str:
+        """
+        .. note::
+
+            将读取的yaml模板中的内容转换为字符串
+
+        :return: - yaml模板中的内容，类型为字符串
+        """
+        content = {}
+        data = self.word_tpl.get_yaml_singleton_str()
+        env = Environment()
+        parse_rs = env.parse(data)
+        for tag in meta.find_undeclared_variables(parse_rs):
+            content[tag] = getattr(self, tag)()
+        return Template(data).render(content)
+
+    def convert_to_dict(self) -> dict:
+        """
+        .. note::
+
+            将读取的yaml模板中的内容转换为字典
+
+        :return: - yaml模板中的内容，类型为字典
+        """
+        return ast.literal_eval(self.convert_to_str())
+
+    def get_value(self, prop):
+        """
+        .. note::
+
+            从转换后的yaml字典中，根据属性获取对应的值
+
+            加载多个yaml文件，排在后面的文件里的值，会覆盖前面的文件里的值
+
+        :param prop: 属性，用 ``.`` 分隔，例如，``pdbc.engine.url``
+        :return: - 转换后的yaml字典中对应的值
+        """
+        prop_list = prop.split('.')
+        if len(self.__yaml_dict) == 0:
+            yaml_dict = self.convert_to_dict()
+            self.__yaml_dict.update(yaml_dict)
+        value = None
+        temp_list = copy.deepcopy(prop_list)
+        v = YamlUtils().get_value(self.__yaml_dict, temp_list, prop, '')
+        if v is not None:
+            value = v
+        return value
