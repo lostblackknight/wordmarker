@@ -9,14 +9,6 @@ wordmarker.utils package
 Submodules
 ----------
 
-wordmarker.utils.csv module
----------------------------
-
-.. automodule:: wordmarker.utils.csv
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
 wordmarker.utils.file module
 ----------------------------
 
