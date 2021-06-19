@@ -31,7 +31,7 @@ WordMarker是一个文档生成器，他提供了以下主要的功能。
 .. seealso::
 
    `DataFrame <https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html#>`_ 是pandas中的数据类型，
-   请访问 `pandas官网`_ ，了解更多信息。
+   请访问 `pandas官网 <https://pandas.pydata.org/>`_ ，了解更多信息。
 
 快速入门
 =================
@@ -63,5 +63,3 @@ API 文档
    wordmarker.loaders
    wordmarker.templates
    wordmarker.utils
-
-.. _pandas官网: https://pandas.pydata.org/
